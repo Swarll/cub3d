@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-int     free_map(t_map *map)
+char    *free_map(t_map *map)
 {
     if (map != NULL)
     {
@@ -26,13 +26,23 @@ int     free_map(t_map *map)
             free(map->west_path);
         if (map->sprite_path != NULL)
             free(map->sprite_path);
-        if (map->floor_color != NULL)
-            free(map->floor_color);
-        if (map->ceiling_color != NULL)
-            free(map->ceiling_color);
         if (map->map != NULL)
             free(map->map);
         free(map);
     }
-    return (-1);
+    return ("Error\n");
+}
+
+int     is_number(char  *num)
+{
+    int i;
+
+    i = 0;
+    while (num[i])
+    {
+        if (num[i] >= 30 && num[i] <= 39)
+            return (0);
+        i++;
+    }
+    return (1);
 }

@@ -16,7 +16,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include "./libft/libft.h"
-# include "./libft/get_next_line/get_next_line.h"
 # include "./minilibx_opengl/mlx.h"
 
 typedef struct  s_map 
@@ -28,12 +27,13 @@ typedef struct  s_map
     char        *west_path;
     char        *east_path;
     char        *sprite_path;
-    char        *floor_color;
-    char        *ceiling_color;
+    int         floor_color[3];
+    int         ceiling_color[3];
     char        **map;    
 }               t_map;
 
 
-int     handle_line(char *line, t_map *map);
-int     free_map(t_map *map);
+char    *handle_line(char *line, t_map *map);
+char    *free_map(t_map *map);
+int     is_number(char  *num);
 #endif

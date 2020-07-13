@@ -16,9 +16,11 @@ char *handle_dot_cub(char *argv, t_map *map)
 {
     int fd;
     int i;
-	char *line = 0;
+	char *line;
+    char **tmp;
     
-    if (!(fd = open(argv, O_RDONLY)))
+    tmp = ft_split(argv, '.');
+    if (!(fd = open(argv, O_RDONLY)) || !(tmp[1]) || ft_strncmp("cub", tmp[1], 3) != 0)
         return("Error\nNot valid file");
     while ((i = get_next_line(fd, &line)) > 0) 
     {
@@ -35,16 +37,17 @@ int main(int argc, char *argv[])
     void    *win_ptr;
     t_map   *map;
 
-    mlx_ptr = mlx_init();
-    win_ptr = mlx_new_window(mlx_ptr, 1200, 800, "Test");
-
-    mlx_loop(win_ptr);
-
     if (argc == 1 && argv[0] != 0)
     {
         if (!(map = malloc(sizeof(struct s_map))))
             return (0);
-        handle_dot_cub(argv[0], map);
+        if (handle_dot_cub(argv[0], map))
+            return (-1);
+        mlx_ptr = mlx_init();
+        win_ptr = mlx_new_window(mlx_ptr, 1200, 800, "Test");
+
+        mlx_loop(win_ptr);
+
     }
     return(0);
 }
