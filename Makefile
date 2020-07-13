@@ -25,7 +25,7 @@ NAME = cub3d
 SRC = main.c handle_line.c utils.c
 
 OBJ = $(SRC:.c=.o)
-	INCLUDE = cub3d.h mlx.h
+	INCLUDE = cub3d.h 
 
 all : libft_all $(NAME)
 

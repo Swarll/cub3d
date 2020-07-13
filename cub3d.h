@@ -16,7 +16,8 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include "./libft/libft.h"
-# include "./minilibx/mlx.h"
+# include "./libft/get_next_line/get_next_line.h"
+# include "./minilibx_opengl/mlx.h"
 
 typedef struct  s_map 
 {
