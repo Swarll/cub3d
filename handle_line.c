@@ -33,20 +33,38 @@ void    initialize_map(t_map *map)
 char    *set_map(char *line, t_map *map)
 {
     int i;
+    char **tmp;
 
     i = 0;
-        printf("SEGV1\n");////////
     if (map->map)
     {
-        printf("mh\n");////////
+        if (!(tmp = malloc(sizeof(char *) * map_size(map->map))))
+            return(0);
         while (map->map[i])
+        {
+            ft_memcpy(tmp[i], map->map[i], ft_strlen(map->map[i]));
             i++;
+        }
+        free_d_map(map->map);
+        if (!(map->map = malloc(sizeof(char *) * (i + 1))))
+            return(0);
+        i = 0;
+        while(tmp[i])
+        {
+            if (!(map->map[i] = malloc(sizeof(char) * ft_strlen(tmp[i]))))
+                return (0);
+            ft_memcpy(map->map[i], tmp[i], ft_strlen(tmp[i]));
+        }
+        free_d_map(tmp);
     }
-        printf("SEGV2\n");///////
+    else
+    {
+        if (!(map->map = malloc(sizeof(char *) * 1)))
+            return(0);
+    }
     if (!(map->map[i] = malloc(sizeof(char) * ft_strlen(line))))
-        return (free_map(map));
-        printf("SEGV3\n");////////
-    ft_memcpy(map->map[i], line, 0);
+        return (0);
+    ft_memcpy(map->map[i], line, ft_strlen(line));
     return (0);
 }
 
@@ -54,7 +72,6 @@ char    *handle_line(char *line, t_map *map)
 {
     char    **tmp;
     
-    initialize_map(map);
     if ('R' == line[0])
     {
         printf("R\n"); //////////
@@ -68,11 +85,10 @@ char    *handle_line(char *line, t_map *map)
         else
             return (free_map(map));
         free(tmp);
-
-        printf("END R\n"); ////////////
     }
     else if (ft_strncmp("NO", line, 2) == 0)
     {
+        printf("NO\n"); //////////
         if (!(tmp = ft_split(line, ' ')) || !(tmp[1]))
             return (free_map(map));
         map->north_path = tmp[1];
@@ -80,6 +96,7 @@ char    *handle_line(char *line, t_map *map)
     }
     else if (ft_strncmp("SO", line, 2) == 0)
     {
+        printf("SO\n"); //////////
         if (!(tmp = ft_split(line, ' ')) || !(tmp[1]))
             return (free_map(map));
         map->south_path = tmp[1];
@@ -87,6 +104,7 @@ char    *handle_line(char *line, t_map *map)
     }
     else if (ft_strncmp("WE", line, 2) == 0)
     {
+        printf("WE\n"); //////////
         if (!(tmp = ft_split(line, ' ')) || !(tmp[1]))
             return (free_map(map));
         map->west_path = tmp[1];
@@ -94,6 +112,7 @@ char    *handle_line(char *line, t_map *map)
     }
     else if (ft_strncmp("EA", line, 2) == 0)
     {
+        printf("EA\n"); //////////
         if (!(tmp = ft_split(line, ' ')) || !(tmp[1]))
             return (free_map(map));
         map->east_path = tmp[1];
@@ -101,6 +120,7 @@ char    *handle_line(char *line, t_map *map)
     }
     else if ('S' == line[0])
     {
+        printf("S\n"); //////////
         if (!(tmp = ft_split(line, ' ')) || !(tmp[1]))
             return (free_map(map));
         map->sprite_path = tmp[1];
@@ -108,8 +128,11 @@ char    *handle_line(char *line, t_map *map)
     }
     else if ('F' == line[0])
     {
+        printf("F\n"); //////////
         if (!(tmp = ft_split(line, ' ')) || !(tmp[1]))
             return (free_map(map));
+        if (tmp)
+            free(tmp);
         if (!(tmp = ft_split(line, ',')) || !(tmp[0]) || !(is_number(tmp[0])) || !(tmp[1]) ||
             !(is_number(tmp[1])) || !(tmp[2]) || !(is_number(tmp[3])))
             return (free_map(map));
@@ -123,11 +146,14 @@ char    *handle_line(char *line, t_map *map)
     }
     else if ('C' == line[0])
     {
+        printf("C\n"); //////////
         if (!(tmp = ft_split(line, ' ')) || !(tmp[1]))
-            return (free_map(map));
+            return (0);
+        if (tmp)
+            free(tmp);
         if (!(tmp = ft_split(line, ',')) || !(tmp[0]) || !(is_number(tmp[0])) || !(tmp[1]) ||
             !(is_number(tmp[1])) || !(tmp[2]) || !(is_number(tmp[3])))
-            return (free_map(map));
+            return (0);
         else
         {
             map->ceiling_color[0] = ft_atoi(tmp[0]);
@@ -138,7 +164,7 @@ char    *handle_line(char *line, t_map *map)
     }
     else
     {
-        printf("SEGV\n");
+        printf("MAP\n"); //////////
         return (set_map(line, map));
     }
     return (0);

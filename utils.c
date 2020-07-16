@@ -27,10 +27,32 @@ char    *free_map(t_map *map)
         if (map->sprite_path != NULL)
             free(map->sprite_path);
         if (map->map != NULL)
+        {
+            free_d_map(map->map);
             free(map->map);
+        }
         free(map);
     }
     return ("Error\n");
+}
+
+void    free_d_map(char **map)
+{
+    int i;
+
+    i = 0;
+    while (map[i])
+        free(map[i++]);
+}
+
+int     map_size(char   **map)
+{
+    int i;
+
+    i = 0;
+    while (map[i])
+        i++;
+    return (i);
 }
 
 int     is_number(char  *num)

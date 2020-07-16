@@ -29,17 +29,21 @@ char *handle_dot_cub(char *argv, t_map *map)
         
     printf("OPEN GOOD\n");///////////////
 
-    while ((i = get_next_line(fd, &line)) >= 0) 
+    initialize_map(map);
+    while ((i = get_next_line(fd, &line)) > 0) 
     {
 
         printf("HANDLE LINE\n");/////////////
-
-        handle_line(line, map);
-        free(line);
-
-        printf("HANDLE LINE END\n");/////////////
+        if (line)
+        {
+            handle_line(line, map);
+            free(line);
+        }
         
+        printf("HANDLE LINE END\n");/////////////
+
     }
+    free(tmp);
     close(fd);
     return (0);
 }

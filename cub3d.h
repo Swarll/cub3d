@@ -36,4 +36,8 @@ typedef struct  s_map
 char    *handle_line(char *line, t_map *map);
 char    *free_map(t_map *map);
 int     is_number(char  *num);
+void    initialize_map(t_map *map);
+void    free_d_map(char **map);
+int     map_size(char   **map);
+
 #endif
