@@ -18,35 +18,51 @@ char *handle_dot_cub(char *argv, t_map *map)
     int i;
 	char *line;
     char **tmp;
-    
+
+    printf("HANDLE DOTCUB\n");///////////
+
     tmp = ft_split(argv, '.');
+    for (int j = 0; tmp[j]; j++)
+        printf("%s\n", tmp[j]);
     if (!(fd = open(argv, O_RDONLY)) || !(tmp[1]) || ft_strncmp("cub", tmp[1], 3) != 0)
         return("Error\nNot valid file");
-    while ((i = get_next_line(fd, &line)) > 0) 
+        
+    printf("OPEN GOOD\n");///////////////
+
+    while ((i = get_next_line(fd, &line)) >= 0) 
     {
+
+        printf("HANDLE LINE\n");/////////////
+
         handle_line(line, map);
+        free(line);
+
+        printf("HANDLE LINE END\n");/////////////
+        
     }
-    free(line);
     close(fd);
     return (0);
 }
 
 int main(int argc, char *argv[])
-{   
-    void    *mlx_ptr;
-    void    *win_ptr;
+{
+    char    *res;
+    // void    *mlx_ptr;
+    // void    *win_ptr;
     t_map   *map;
 
-    if (argc == 1 && argv[0] != 0)
+    if (argc == 2 && argv[0] != 0)
     {
+        printf("ARGC ARGV GOOD\n");////////
         if (!(map = malloc(sizeof(struct s_map))))
             return (0);
-        if (handle_dot_cub(argv[0], map))
-            return (-1);
-        mlx_ptr = mlx_init();
-        win_ptr = mlx_new_window(mlx_ptr, 1200, 800, "Test");
+        res = handle_dot_cub(argv[1], map);
+        
+            
+        // mlx_ptr = mlx_init();
+        // win_ptr = mlx_new_window(mlx_ptr, 1200, 800, "Test");
 
-        mlx_loop(win_ptr);
+        // mlx_loop(win_ptr);
 
     }
     return(0);

@@ -32,16 +32,21 @@ void    initialize_map(t_map *map)
 
 char    *set_map(char *line, t_map *map)
 {
-    int len;
     int i;
 
     i = 0;
-    while (map->map[i] != NULL)
-        i++;
-    len = ft_strlen(line);
-    if (!(map->map[i] = malloc(sizeof(char) * len)))
+        printf("SEGV1\n");////////
+    if (map->map)
+    {
+        printf("mh\n");////////
+        while (map->map[i])
+            i++;
+    }
+        printf("SEGV2\n");///////
+    if (!(map->map[i] = malloc(sizeof(char) * ft_strlen(line))))
         return (free_map(map));
-    map->map[i] = line;
+        printf("SEGV3\n");////////
+    ft_memcpy(map->map[i], line, 0);
     return (0);
 }
 
@@ -52,6 +57,7 @@ char    *handle_line(char *line, t_map *map)
     initialize_map(map);
     if ('R' == line[0])
     {
+        printf("R\n"); //////////
         if (!(tmp = ft_split(line, ' ')))
             return (free_map(map));
         if (tmp && tmp[1] && is_number(tmp[1]) && tmp[2] && is_number(tmp[2]))
@@ -62,6 +68,8 @@ char    *handle_line(char *line, t_map *map)
         else
             return (free_map(map));
         free(tmp);
+
+        printf("END R\n"); ////////////
     }
     else if (ft_strncmp("NO", line, 2) == 0)
     {
@@ -130,6 +138,7 @@ char    *handle_line(char *line, t_map *map)
     }
     else
     {
+        printf("SEGV\n");
         return (set_map(line, map));
     }
     return (0);
