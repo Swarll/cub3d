@@ -19,29 +19,19 @@ char *handle_dot_cub(char *argv, t_map *map)
 	char *line;
     char **tmp;
 
-    printf("HANDLE DOTCUB\n");///////////
-
     tmp = ft_split(argv, '.');
-    for (int j = 0; tmp[j]; j++)
-        printf("%s\n", tmp[j]);
     if (!(fd = open(argv, O_RDONLY)) || !(tmp[1]) || ft_strncmp("cub", tmp[1], 3) != 0)
         return("Error\nNot valid file");
-        
-    printf("OPEN GOOD\n");///////////////
-
     initialize_map(map);
     while ((i = get_next_line(fd, &line)) > 0) 
     {
-
-        printf("HANDLE LINE\n");/////////////
-        if (line)
+        if (line && line[0])
         {
+            printf("%s\n", line);
             handle_line(line, map);
+            line = 0;
             free(line);
         }
-        
-        printf("HANDLE LINE END\n");/////////////
-
     }
     free(tmp);
     close(fd);
@@ -61,7 +51,8 @@ int main(int argc, char *argv[])
         if (!(map = malloc(sizeof(struct s_map))))
             return (0);
         res = handle_dot_cub(argv[1], map);
-        
+        if (map)
+            free_map(map);
             
         // mlx_ptr = mlx_init();
         // win_ptr = mlx_new_window(mlx_ptr, 1200, 800, "Test");
