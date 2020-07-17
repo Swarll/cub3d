@@ -33,15 +33,6 @@ char    *free_map(t_map *map)
     return ("Error\n");
 }
 
-// void    free_d_map(char **map)
-// {
-//     int i;
-
-//     i = 0;
-//     while (map[i])
-//         free(map[i++]);
-// }
-
 int     map_size(char   **map)
 {
     int i;

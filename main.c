@@ -29,6 +29,8 @@ char *handle_dot_cub(char *argv, t_map *map)
         {
             printf("%s\n", line);
             handle_line(line, map);
+            if (map->map)
+                printf("%s",map->map);
             line = 0;
             free(line);
         }
@@ -48,16 +50,15 @@ int main(int argc, char *argv[])
     if (argc == 2 && argv[0] != 0)
     {
         printf("ARGC ARGV GOOD\n");////////
-        if (!(map = malloc(sizeof(struct s_map))))
+        if (!(map = malloc(sizeof(t_map *))))
             return (0);
         res = handle_dot_cub(argv[1], map);
-        if (map)
-            free_map(map);
-            
         // mlx_ptr = mlx_init();
         // win_ptr = mlx_new_window(mlx_ptr, 1200, 800, "Test");
 
         // mlx_loop(win_ptr);
+        if (map)
+            free_map(map);
 
     }
     return(0);
