@@ -25,12 +25,14 @@ char *handle_dot_cub(char *argv, t_map *map)
     initialize_map(map);
     while ((i = get_next_line(fd, &line)) > 0) 
     {
-        if (line && line[0])
+        if (line)
         {
             printf("%s\n", line);
             handle_line(line, map);
-            if (map->map)
-                printf("%s",map->map);
+            if (map->map) {
+                for(int j = 0; map->map[j]; j++)
+                printf("%s\n",map->map[j]);
+            }
             line = 0;
             free(line);
         }
@@ -59,7 +61,6 @@ int main(int argc, char *argv[])
         // mlx_loop(win_ptr);
         if (map)
             free_map(map);
-
     }
     return(0);
 }

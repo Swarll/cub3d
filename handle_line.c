@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_line.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: becentrale <becentrale@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:57:52 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/07/01 11:39:27 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/23 15:47:42 by becentrale       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,33 +34,46 @@ void    initialize_map(t_map *map)
 
 char    *set_map(char *line, t_map *map)
 {
-    char *tmp;
+    int i;
+    int act_l;
+    char **tmp;
 
-    printf("1\n");
-    if (map && map->map)
+    i = 0;
+    act_l = 0;
+    if (map->map)
     {
-        printf("2\n");
-        tmp = ft_strjoin(map->map, line);
-        free(map->map);
-        if (!(map->map = malloc(sizeof(char) * (ft_strlen(tmp) + 2))))
-            return 0;
-        map->map = ft_strdup(tmp);
-        map->map[ft_strlen(tmp)] = '\n';
-        map->map[ft_strlen(tmp) + 1] = '\0';
-        tmp = 0;
-        free(tmp);
+        while(map->map[act_l])
+            act_l++;
+        if (!(tmp = malloc(sizeof(char**) * (act_l + 1))))
+            return(0);
+        while(map->map[i])
+        {
+            tmp[i] = ft_strdup(map->map[i]);
+            i++;
+        }
+        tmp[i] = 0;
+        free_d_p(map->map);
+        i = 0;
+        if(!(map->map = malloc(sizeof(char**) * (act_l + 2))))
+            return(0);
+        while(tmp[i])
+        {
+            map->map[i] = ft_strdup(tmp[i]);
+            i++;
+        }
+        map->map[i++] = ft_strdup(line);
+        map->map[i] = 0;
+        free_d_p(tmp);
     }
     else
     {
-        printf("3\n");
-        if(!(map->map = malloc(sizeof(char) * (ft_strlen(line) + 2))))
-            return 0;
-        map->map = ft_strdup(line);
-        map->map[ft_strlen(line)] = '\n';
-        map->map[ft_strlen(line) + 1] = '\0';
+        if(!(map->map = malloc(sizeof(char**) * 2)))
+            return(0);
+        map->map[i] = ft_strdup(line);
+        map->map[i + 1] = 0;
+        if (!only_one_checker(map, 0))
+            exit_map("The map doesn't fit with rules", map);
     }
-    printf("4\n");
-    // printf("%s", map->map);
     return 0;
 }
 

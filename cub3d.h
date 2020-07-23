@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: becentrale <becentrale@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:16:09 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/07/01 11:24:10 by user42           ###   ########.fr       */
+/*   Updated: 2020/07/23 15:49:58 by becentrale       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct  s_map
     char        *sprite_path;
     int         floor_color[3];
     int         ceiling_color[3];
-    char        *map;    
+    char        **map;
 }               t_map;
 
 
@@ -37,7 +37,10 @@ char    *handle_line(char *line, t_map *map);
 char    *free_map(t_map *map);
 int     is_number(char  *num);
 void    initialize_map(t_map *map);
-// void    free_d_map(char **map);
 int     map_size(char   **map);
+void    free_d_p(char **to_free);
+int     only_one_checker(t_map *map, int y);
+int     ft_isspace(char c);
+void    exit_map(char *status, t_map *map);
 
 #endif

@@ -15,14 +15,14 @@ LIBFT = libft.a
 LIB_GRAPH = -framework OpenGl -framework Appkit -L minilibx_opengl -lmlx
 
 CC = gcc
-CCFLAGS = -Wall -Werror -Wextra
+CCFLAGS = -Wall -Werror -Wextra 
 INCLAGS = -I$(LIBFT_ROOT) $(LIB_GRAPH) 
 RM = rm -f
 LIB = ar rcs
 
 NAME = cub3d
 
-SRC = main.c handle_line.c utils.c
+SRC = main.c handle_line.c utils.c map_checker.c
 
 OBJ = $(SRC:.c=.o)
 	INCLUDE = cub3d.h 
