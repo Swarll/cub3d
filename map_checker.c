@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becentrale <becentrale@student.42.fr>      +#+  +:+       +#+        */
+/*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 14:52:35 by becentrale        #+#    #+#             */
-/*   Updated: 2020/07/23 15:55:21 by becentrale       ###   ########.fr       */
+/*   Updated: 2020/09/07 10:40:22 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int     only_one_checker(t_map *map, int y)
+int     boundaries_checker(t_map *map, int y)
 {
     int x;
 
@@ -23,6 +23,25 @@ int     only_one_checker(t_map *map, int y)
             return (0);
         x++;
     }
+    return 1;
+}
+
+int     line_checker(t_map *map, int y)
+{
+    int x;
+
+    x = 0;
+    printf("Y = %i\n", y);
+    while (map->map[y][x])
+    {
+        if (ft_isspace(map->map[y][x]) && !(ft_isspace(map->map[y - 1][x]) || map->map[y - 1][x] == '1'))
+            return (0);
+        // if (map->map[y][x] == '0' && (x == 0 || !(map->map[y-1][x] || ft_isspace(map->map[y][x-1]) || ft_isspace(map->map[y-1][x]))))
+        //     return (0);
+        x++;
+    }
+    if (map->map[y][x - 1] != '1')
+        return (0);
     return 1;
 }
 

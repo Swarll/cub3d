@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becentrale <becentrale@student.42.fr>      +#+  +:+       +#+        */
+/*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:16:09 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/07/23 15:49:58 by becentrale       ###   ########.fr       */
+/*   Updated: 2020/09/07 10:06:38 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ int     is_number(char  *num);
 void    initialize_map(t_map *map);
 int     map_size(char   **map);
 void    free_d_p(char **to_free);
-int     only_one_checker(t_map *map, int y);
+int     boundaries_checker(t_map *map, int y);
 int     ft_isspace(char c);
 void    exit_map(char *status, t_map *map);
+int     line_checker(t_map *map, int y);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_line.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becentrale <becentrale@student.42.fr>      +#+  +:+       +#+        */
+/*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:57:52 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/07/23 15:47:42 by becentrale       ###   ########.fr       */
+/*   Updated: 2020/09/07 10:22:20 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ char    *set_map(char *line, t_map *map)
         map->map[i++] = ft_strdup(line);
         map->map[i] = 0;
         free_d_p(tmp);
+        if (!(line_checker(map, i - 1)))
+            exit_map("The map doesn't fit with rules1", map);
     }
     else
     {
@@ -71,8 +73,8 @@ char    *set_map(char *line, t_map *map)
             return(0);
         map->map[i] = ft_strdup(line);
         map->map[i + 1] = 0;
-        if (!only_one_checker(map, 0))
-            exit_map("The map doesn't fit with rules", map);
+        if (!boundaries_checker(map, 0))
+            exit_map("The map doesn't fit with rules2", map);
     }
     return 0;
 }
