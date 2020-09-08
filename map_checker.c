@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 14:52:35 by becentrale        #+#    #+#             */
-/*   Updated: 2020/09/08 09:41:39 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/09/08 10:01:34 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int     past_line_checker(t_map *map, int y)
     x = 0;
     while (map->map[y-1][x])
     {
-        if (map->map[y-1][x] == '0' && !(map->map[y][x] != 0 || !ft_isspace(map->map[y][x])))
+        if (map->map[y-1][x] == '0' && !(map->map[y][x] || ft_isspace(map->map[y][x])))
             return (0);
         x++;
     }
