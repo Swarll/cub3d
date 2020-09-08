@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 14:52:35 by becentrale        #+#    #+#             */
-/*   Updated: 2020/09/07 10:40:22 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/09/08 09:41:39 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@ int     boundaries_checker(t_map *map, int y)
     return 1;
 }
 
+int     past_line_checker(t_map *map, int y)
+{
+    int x;
+
+    x = 0;
+    while (map->map[y-1][x])
+    {
+        if (map->map[y-1][x] == '0' && !(map->map[y][x] != 0 || !ft_isspace(map->map[y][x])))
+            return (0);
+        x++;
+    }
+    return (1);
+}
+
 int     line_checker(t_map *map, int y)
 {
     int x;
@@ -36,13 +50,15 @@ int     line_checker(t_map *map, int y)
     {
         if (ft_isspace(map->map[y][x]) && !(ft_isspace(map->map[y - 1][x]) || map->map[y - 1][x] == '1'))
             return (0);
-        // if (map->map[y][x] == '0' && (x == 0 || !(map->map[y-1][x] || ft_isspace(map->map[y][x-1]) || ft_isspace(map->map[y-1][x]))))
-        //     return (0);
+        if (map->map[y][x] == '0' && (x == 0 || !(map->map[y-1][x] || ft_isspace(map->map[y][x-1]) || ft_isspace(map->map[y-1][x]))))
+            return (0);
         x++;
     }
     if (map->map[y][x - 1] != '1')
         return (0);
-    return 1;
+    if (y > 0)
+        return (past_line_checker(map, y));
+    return (1);
 }
 
 void    exit_map(char *status, t_map *map)
