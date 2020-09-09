@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:16:09 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/09/07 10:06:38 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/09/09 15:28:37 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,7 @@ int     boundaries_checker(t_map *map, int y);
 int     ft_isspace(char c);
 void    exit_map(char *status, t_map *map);
 int     line_checker(t_map *map, int y);
+int     last_line_checker(t_map *map);
+int     empty_line(char *line);
 
 #endif

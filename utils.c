@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becentrale <becentrale@student.42.fr>      +#+  +:+       +#+        */
+/*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 16:58:52 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/07/23 15:54:20 by becentrale       ###   ########.fr       */
+/*   Updated: 2020/09/09 16:14:27 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int     is_number(char  *num)
     i = 0;
     while (num[i])
     {
-        if (num[i] >= 30 && num[i] <= 39)
+        if (num[i] < 48 || num[i] > 57)
             return (0);
         i++;
     }
@@ -94,4 +94,17 @@ int     ft_isspace(char c)
         && c != '\r' && c != 'v' && c != 'f')
         return 0;
     return 1;
+}
+
+int     empty_line(char *line)
+{
+    int i;
+
+    i = 0;
+    while (line[i])
+        if (ft_isspace(line[i]))
+            i++;
+        else
+            return (1);
+    return (0);
 }

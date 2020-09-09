@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:14:03 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/07/01 11:21:32 by user42           ###   ########.fr       */
+/*   Updated: 2020/09/09 15:58:38 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char *handle_dot_cub(char *argv, t_map *map)
+void    handle_dot_cub(char *argv, t_map *map)
 {
     int fd;
     int i;
@@ -21,40 +21,40 @@ char *handle_dot_cub(char *argv, t_map *map)
 
     tmp = ft_split(argv, '.');
     if (!(fd = open(argv, O_RDONLY)) || !(tmp[1]) || ft_strncmp("cub", tmp[1], 3) != 0)
-        return("Error\nNot valid file");
+        exit_map("Error\nNot valid file", map);
     initialize_map(map);
     while ((i = get_next_line(fd, &line)) > 0) 
     {
         if (line)
         {
-            printf("%s\n", line);
             handle_line(line, map);
-            if (map->map) {
-                for(int j = 0; map->map[j]; j++)
-                printf("%s\n",map->map[j]);
-            }
             line = 0;
             free(line);
         }
+    }        
+    if (line)
+    {
+        handle_line(line, map);
+        line = 0;
+        free(line);
+        if (!(last_line_checker(map)))
+            exit_map("Error\nLast line is incorrect", map);
     }
     free(tmp);
     close(fd);
-    return (0);
 }
 
 int main(int argc, char *argv[])
 {
-    char    *res;
     // void    *mlx_ptr;
     // void    *win_ptr;
     t_map   *map;
 
     if (argc == 2 && argv[0] != 0)
     {
-        printf("ARGC ARGV GOOD\n");////////
         if (!(map = malloc(sizeof(t_map *))))
             return (0);
-        res = handle_dot_cub(argv[1], map);
+        handle_dot_cub(argv[1], map);
         // mlx_ptr = mlx_init();
         // win_ptr = mlx_new_window(mlx_ptr, 1200, 800, "Test");
 
