@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:16:09 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/09/09 15:28:37 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/09/10 16:33:12 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,20 @@ typedef struct  s_map
     char        **map;
 }               t_map;
 
+typedef struct  s_gameinf
+{
+    void        *mlx_ptr;
+    void        *win_ptr;
+    int         spawn_y;
+    int         spawn_x;
+    char        spawn_dir;
+}               t_gameinf;
+
+
 
 char    *handle_line(char *line, t_map *map);
-char    *free_map(t_map *map);
+int     free_map(t_map *map);
+int     free_game(t_gameinf *game);
 int     is_number(char  *num);
 void    initialize_map(t_map *map);
 int     map_size(char   **map);
@@ -45,5 +56,7 @@ void    exit_map(char *status, t_map *map);
 int     line_checker(t_map *map, int y);
 int     last_line_checker(t_map *map);
 int     empty_line(char *line);
+void    *start_ray(t_map *map);
+void    exit_all(t_map *map, t_gameinf *game, char *status);
 
 #endif

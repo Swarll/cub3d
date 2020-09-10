@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:14:03 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/09/09 15:58:38 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/09/10 15:40:37 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,15 @@ void    handle_dot_cub(char *argv, t_map *map)
 
 int main(int argc, char *argv[])
 {
-    // void    *mlx_ptr;
-    // void    *win_ptr;
     t_map   *map;
 
     if (argc == 2 && argv[0] != 0)
     {
-        if (!(map = malloc(sizeof(t_map *))))
+        if (!(map = malloc(sizeof(t_map))))
             return (0);
         handle_dot_cub(argv[1], map);
-        // mlx_ptr = mlx_init();
-        // win_ptr = mlx_new_window(mlx_ptr, 1200, 800, "Test");
-
-        // mlx_loop(win_ptr);
+        if (!(start_ray(map)))
+            return (0);
         if (map)
             free_map(map);
     }

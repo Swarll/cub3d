@@ -6,13 +6,13 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 16:58:52 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/09/09 16:14:27 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/09/10 16:21:18 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char    *free_map(t_map *map)
+int     free_map(t_map *map)////////completer?
 {
     if (map)
     {
@@ -46,7 +46,33 @@ char    *free_map(t_map *map)
         map = 0;
         free(map);
     }
-    return ("Error\n");
+    return (1);
+}
+
+int     free_game(t_gameinf *game)
+{
+    if (game)
+    {
+        if (game->mlx_ptr)
+        {
+            game->mlx_ptr = 0;
+            free(game->mlx_ptr);
+        }
+        if (game->win_ptr)
+        {
+            game->win_ptr = 0;
+            free(game->win_ptr);
+        }
+        game = 0;
+        free(game);
+    }
+    return (1);
+}
+
+void    exit_all(t_map *map, t_gameinf *game, char *status)
+{
+    free_game(game);
+    exit_map(status, map);
 }
 
 void    free_d_p(char **to_free)
