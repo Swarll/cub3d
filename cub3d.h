@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:16:09 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/09/10 16:33:12 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/01 19:23:10 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <math.h>
 # include "./libft/libft.h"
 # include "./minilibx_opengl/mlx.h"
 
@@ -36,9 +37,29 @@ typedef struct  s_gameinf
 {
     void        *mlx_ptr;
     void        *win_ptr;
-    int         spawn_y;
-    int         spawn_x;
-    char        spawn_dir;
+    double      pos_y;
+    double      pos_x;
+    double      dir_y;
+    double      dir_x;
+    double      plane_x;
+    double      plane_y;
+    double      time;
+    double      old_time;
+    double      camera_x;
+    double      ray_dir_x;
+    double      ray_dir_y;
+    int         square_x;
+    int         square_y;
+    double      side_dist_x;
+    double      side_dist_y;
+    double      delta_dist_x;
+    double      delta_dist_y;
+    double      perp_wall_dist;
+    int         step_x;
+    int         step_y;
+    int         line_height;
+    int         draw_start;
+    int         draw_end;
 }               t_gameinf;
 
 
@@ -58,5 +79,6 @@ int     last_line_checker(t_map *map);
 int     empty_line(char *line);
 void    *start_ray(t_map *map);
 void    exit_all(t_map *map, t_gameinf *game, char *status);
+void    start_game(t_gameinf *game, t_map *map);
 
 #endif
