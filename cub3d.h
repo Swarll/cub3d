@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Guillaume <Guillaume@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:16:09 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/10/01 19:23:10 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/02 13:20:16 by Guillaume        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ int     empty_line(char *line);
 void    *start_ray(t_map *map);
 void    exit_all(t_map *map, t_gameinf *game, char *status);
 void    start_game(t_gameinf *game, t_map *map);
+int    key_pressed(int key, t_gameinf *game, t_map *map);
 
 #endif

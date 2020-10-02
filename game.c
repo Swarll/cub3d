@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: Guillaume <Guillaume@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 16:21:34 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/01 19:26:05 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/02 11:31:38 by Guillaume        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void    draw_line(int x, t_map *map, t_gameinf *game)
     int y = 0;
 
     while (y < game->draw_start)
-        mlx_pixel_put(game->mlx_ptr, game->win_ptr, x, y++, 0xFFFFFF);
+        mlx_pixel_put(game->mlx_ptr, game->win_ptr, x, y++, 0x00FF00);
     while (y < game->draw_end)
         mlx_pixel_put(game->mlx_ptr, game->win_ptr, x, y++, 0xFF0000);
     while (y < map->res_y)
@@ -60,7 +60,8 @@ void    basis_calc2(t_map *map, t_gameinf *game, int side)
     game->line_height = (int)(map->res_y / game->perp_wall_dist);
     game->draw_start = (game->line_height * (-1)) / 2 + map->res_y / 2;
     if (game->draw_start < 0)
-        game->draw_end = game->line_height / 2 + map->res_y / 2;
+        game->draw_start = 0;
+    game->draw_end = game->line_height / 2 + map->res_y / 2;
     if (game->draw_end >= map->res_y)
         game->draw_end = map->res_y - 1;
 }

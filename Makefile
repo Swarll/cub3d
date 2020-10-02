@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+         #
+#    By: Guillaume <Guillaume@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/01 11:18:53 by user42            #+#    #+#              #
-#    Updated: 2020/10/01 19:21:22 by grigaux          ###   ########.fr        #
+#    Updated: 2020/10/02 12:47:16 by Guillaume        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ LIB = ar rcs
 
 NAME = cub3d
 
-SRC = main.c handle_line.c utils.c map_checker.c raycasting.c game.c
+SRC = main.c handle_line.c utils.c map_checker.c raycasting.c game.c hooks.c
 
 OBJ = $(SRC:.c=.o)
 	INCLUDE = cub3d.h 
