@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Guillaume <Guillaume@student.42.fr>        +#+  +:+       +#+        */
+/*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:16:09 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/10/02 13:20:16 by Guillaume        ###   ########.fr       */
+/*   Updated: 2020/10/06 10:34:33 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,22 @@
 # include "./libft/libft.h"
 # include "./minilibx_opengl/mlx.h"
 
-typedef struct  s_map 
-{
+// typedef struct  s_map 
+// {
+//     int         res_x;
+//     int         res_y;
+//     char        *north_path;
+//     char        *south_path;
+//     char        *west_path;
+//     char        *east_path;
+//     char        *sprite_path;
+//     int         floor_color[3];
+//     int         ceiling_color[3];
+//     char        **map;
+// }               t_map;
+
+typedef struct  s_gameinf
+{    
     int         res_x;
     int         res_y;
     char        *north_path;
@@ -31,10 +45,6 @@ typedef struct  s_map
     int         floor_color[3];
     int         ceiling_color[3];
     char        **map;
-}               t_map;
-
-typedef struct  s_gameinf
-{
     void        *mlx_ptr;
     void        *win_ptr;
     double      pos_y;
@@ -64,22 +74,20 @@ typedef struct  s_gameinf
 
 
 
-char    *handle_line(char *line, t_map *map);
-int     free_map(t_map *map);
-int     free_game(t_gameinf *game);
+char    *handle_line(char *line, t_gameinf *game);
+int     free_struct(t_gameinf *game);
 int     is_number(char  *num);
-void    initialize_map(t_map *map);
+void    initialize_map(t_gameinf *game);
 int     map_size(char   **map);
 void    free_d_p(char **to_free);
-int     boundaries_checker(t_map *map, int y);
+int     boundaries_checker(t_gameinf *game, int y);
 int     ft_isspace(char c);
-void    exit_map(char *status, t_map *map);
-int     line_checker(t_map *map, int y);
-int     last_line_checker(t_map *map);
+int     line_checker(t_gameinf *game, int y);
+int     last_line_checker(t_gameinf *game);
 int     empty_line(char *line);
-void    *start_ray(t_map *map);
-void    exit_all(t_map *map, t_gameinf *game, char *status);
-void    start_game(t_gameinf *game, t_map *map);
-int    key_pressed(int key, t_gameinf *game, t_map *map);
+void    *start_ray(t_gameinf *game);
+void    exit_struct(char *status, t_gameinf *game);
+void    start_game(t_gameinf *game);
+int    key_press_hook(int keycode, t_gameinf *game);
 
 #endif

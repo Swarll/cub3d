@@ -6,31 +6,31 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:57:52 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/10/01 19:20:37 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/06 10:33:03 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void    initialize_map(t_map *map)
+void    initialize_map(t_gameinf *game)
 {
-    map->res_x = 0;
-    map->res_y = 0;
-    map->north_path = 0;
-    map->south_path = 0;
-    map->west_path = 0;
-    map->east_path = 0;
-    map->sprite_path = 0;
-    map->floor_color[0] = 0;
-    map->floor_color[1] = 0;
-    map->floor_color[2] = 0;
-    map->ceiling_color[0] = 0;
-    map->ceiling_color[1] = 0;
-    map->ceiling_color[2] = 0;
-    map->map = 0;
+    game->res_x = 0;
+    game->res_y = 0;
+    game->north_path = 0;
+    game->south_path = 0;
+    game->west_path = 0;
+    game->east_path = 0;
+    game->sprite_path = 0;
+    game->floor_color[0] = 0;
+    game->floor_color[1] = 0;
+    game->floor_color[2] = 0;
+    game->ceiling_color[0] = 0;
+    game->ceiling_color[1] = 0;
+    game->ceiling_color[2] = 0;
+    game->map = 0;
 }
 
-char    *set_map(char *line, t_map *map)
+char    *set_map(char *line, t_gameinf *game)
 {
     int i;
     int act_l;
@@ -38,109 +38,109 @@ char    *set_map(char *line, t_map *map)
 
     i = 0;
     act_l = 0;
-    if (map->map)
+    if (game->map)
     {
-        while(map->map[act_l])
+        while(game->map[act_l])
             act_l++;
         if (!(tmp = malloc(sizeof(char**) * (act_l + 1))))
             return (0);
-        while(map->map[i])
+        while(game->map[i])
         {
-            tmp[i] = ft_strdup(map->map[i]);
+            tmp[i] = ft_strdup(game->map[i]);
             i++;
         }
         tmp[i] = 0;
-        free_d_p(map->map);
+        free_d_p(game->map);
         i = 0;
-        if(!(map->map = malloc(sizeof(char**) * (act_l + 2))))
+        if(!(game->map = malloc(sizeof(char**) * (act_l + 2))))
             return(0);
         while(tmp[i])
         {
-            map->map[i] = ft_strdup(tmp[i]);
+            game->map[i] = ft_strdup(tmp[i]);
             i++;
         }
-        map->map[i++] = ft_strdup(line);
-        map->map[i] = 0;
+        game->map[i++] = ft_strdup(line);
+        game->map[i] = 0;
         free_d_p(tmp);
-        if (!(line_checker(map, i - 1)))
-            exit_map("Error\nThe map doesn't fit with rules inside the map", map);
+        if (!(line_checker(game, i - 1)))
+            exit_struct("Error\nThe map doesn't fit with rules inside the map", game);
     }
     else
     {
-        if(!(map->map = malloc(sizeof(char**) * 2)))
+        if(!(game->map = malloc(sizeof(char**) * 2)))
             return(0);
-        map->map[i] = ft_strdup(line);
-        map->map[i + 1] = 0;
-        if (!boundaries_checker(map, 0))
-            exit_map("Error\nThe map doesn't fit with rules on the boundaries", map);
+        game->map[i] = ft_strdup(line);
+        game->map[i + 1] = 0;
+        if (!boundaries_checker(game, 0))
+            exit_struct("Error\nThe map doesn't fit with rules on the boundaries", game);
     }
     return 0;
 }
 
-char    *handle_line(char *line, t_map *map) 
+char    *handle_line(char *line, t_gameinf *game) 
 {
     char    **tmp;
     
     if ('R' == line[0])
     {
         if (!(tmp = ft_split(line, ' ')))
-            exit_map("Error\nError with resolution size", map);
+            exit_struct("Error\nError with resolution size", game);
         if (tmp && tmp[1] && is_number(tmp[1]) && tmp[2] && is_number(tmp[2]))
         {
-            map->res_x = ft_atoi(tmp[1]);
-            map->res_y = ft_atoi(tmp[2]);
+            game->res_x = ft_atoi(tmp[1]);
+            game->res_y = ft_atoi(tmp[2]);
         }
         else
-            exit_map("Error\nBad resolution format", map);
+            exit_struct("Error\nBad resolution format", game);
         free(tmp);
     }
     else if (ft_strncmp("NO", line, 2) == 0)
     {
         if (!(tmp = ft_split(line, ' ')) || !(tmp[1]))
-            exit_map("Error\nError with NO path", map);
-        map->north_path = tmp[1];
+            exit_struct("Error\nError with NO path", game);
+        game->north_path = tmp[1];
         free(tmp);
     }
     else if (ft_strncmp("SO", line, 2) == 0)
     {
         if (!(tmp = ft_split(line, ' ')) || !(tmp[1]))
-            exit_map("Error\nError with SO path", map);
-        map->south_path = tmp[1];
+            exit_struct("Error\nError with SO path", game);
+        game->south_path = tmp[1];
         free(tmp);
     }
     else if (ft_strncmp("WE", line, 2) == 0)
     {
         if (!(tmp = ft_split(line, ' ')) || !(tmp[1]))
-            exit_map("Error\nError with WE path", map);
-        map->west_path = tmp[1];
+            exit_struct("Error\nError with WE path", game);
+        game->west_path = tmp[1];
         free(tmp);
     }
     else if (ft_strncmp("EA", line, 2) == 0)
     {
         if (!(tmp = ft_split(line, ' ')) || !(tmp[1]))
-            exit_map("Error\nError with EA path", map);
-        map->east_path = tmp[1];
+            exit_struct("Error\nError with EA path", game);
+        game->east_path = tmp[1];
         free(tmp);
     }
     else if ('S' == line[0])
     {
         if (!(tmp = ft_split(line, ' ')) || !(tmp[1]))
-            exit_map("Error\nError with sprite path", map);
-        map->sprite_path = tmp[1];
+            exit_struct("Error\nError with sprite path", game);
+        game->sprite_path = tmp[1];
         free(tmp);
     }
     else if ('F' == line[0])
     {
         if (!(tmp = ft_split(line, ' ')) || !(tmp[1]))
-            exit_map("Error\nError with Floor color", map);
+            exit_struct("Error\nError with Floor color", game);
         if (!(tmp = ft_split(tmp[1], ',')) || !(tmp[0]) || !(is_number(tmp[0])) || !(tmp[1]) ||
             !(is_number(tmp[1])) || !(tmp[2]) || !(is_number(tmp[2])))
-            exit_map("Error\nError with Floor color", map);
+            exit_struct("Error\nError with Floor color", game);
         else
         {
-            map->floor_color[0] = ft_atoi(tmp[0]);
-            map->floor_color[1] = ft_atoi(tmp[1]);
-            map->floor_color[2] = ft_atoi(tmp[2]);
+            game->floor_color[0] = ft_atoi(tmp[0]);
+            game->floor_color[1] = ft_atoi(tmp[1]);
+            game->floor_color[2] = ft_atoi(tmp[2]);
             free(tmp);
         }
     }
@@ -148,19 +148,19 @@ char    *handle_line(char *line, t_map *map)
     {
         
         if (!(tmp = ft_split(line, ' ')) || !(tmp[1]))
-            exit_map("Error\nError with Cellar color", map);
+            exit_struct("Error\nError with Cellar color", game);
         if (!(tmp = ft_split(tmp[1], ',')) || !(tmp[0]) || !(is_number(tmp[0])) || !(tmp[1]) ||
             !(is_number(tmp[1])) || !(tmp[2]) || !(is_number(tmp[2])))
-            exit_map("Error\nError with Cellar color", map);
+            exit_struct("Error\nError with Cellar color", game);
         else
         {
-            map->ceiling_color[0] = ft_atoi(tmp[0]);
-            map->ceiling_color[1] = ft_atoi(tmp[1]);
-            map->ceiling_color[2] = ft_atoi(tmp[2]);
+            game->ceiling_color[0] = ft_atoi(tmp[0]);
+            game->ceiling_color[1] = ft_atoi(tmp[1]);
+            game->ceiling_color[2] = ft_atoi(tmp[2]);
             free(tmp);
         }
     }
     else if (line[0])
-        return (set_map(line, map));
+        return (set_map(line, game));
     return (0);
 }

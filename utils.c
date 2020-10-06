@@ -6,73 +6,47 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 16:58:52 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/09/10 16:21:18 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/06 10:25:34 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int     free_map(t_map *map)////////completer?
-{
-    if (map)
-    {
-        if (map->north_path) 
-        {
-            map->north_path = 0;
-            free(map->north_path);
-        }
-        if (map->south_path)
-        {
-            map->south_path = 0;
-            free(map->south_path);
-        }
-        if (map->east_path)
-        {
-            map->east_path = 0;
-            free(map->east_path);
-        }
-        if (map->west_path)
-        {
-            map->west_path = 0;
-            free(map->west_path);
-        }
-        if (map->sprite_path)
-        {
-            map->sprite_path = 0;
-            free(map->sprite_path);
-        }
-        if (map->map)
-            free_d_p(map->map);
-        map = 0;
-        free(map);
-    }
-    return (1);
-}
-
-int     free_game(t_gameinf *game)
+int     free_struct(t_gameinf *game)////////completer?
 {
     if (game)
     {
-        if (game->mlx_ptr)
+        if (game->north_path) 
         {
-            game->mlx_ptr = 0;
-            free(game->mlx_ptr);
+            game->north_path = 0;
+            free(game->north_path);
         }
-        if (game->win_ptr)
+        if (game->south_path)
         {
-            game->win_ptr = 0;
-            free(game->win_ptr);
+            game->south_path = 0;
+            free(game->south_path);
         }
+        if (game->east_path)
+        {
+            game->east_path = 0;
+            free(game->east_path);
+        }
+        if (game->west_path)
+        {
+            game->west_path = 0;
+            free(game->west_path);
+        }
+        if (game->sprite_path)
+        {
+            game->sprite_path = 0;
+            free(game->sprite_path);
+        }
+        if (game->map)
+            free_d_p(game->map);
         game = 0;
         free(game);
     }
     return (1);
-}
-
-void    exit_all(t_map *map, t_gameinf *game, char *status)
-{
-    free_game(game);
-    exit_map(status, map);
 }
 
 void    free_d_p(char **to_free)

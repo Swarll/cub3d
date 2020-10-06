@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Guillaume <Guillaume@student.42.fr>        +#+  +:+       +#+        */
+/*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 14:41:57 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/02 13:20:38 by Guillaume        ###   ########.fr       */
+/*   Updated: 2020/10/06 10:33:16 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void    set_loops(t_gameinf *game, t_map *map)
-{
-    mlx_hook(game->win_ptr, 2, 0, key_pressed, game);
+void    set_loops(t_gameinf *game)
+{	
+    mlx_hook(game->win_ptr, 2, 0, key_press_hook, game);
+	// mlx_hook(v->window, 3, 0, key_release_hook, game, map);
     mlx_loop(game->mlx_ptr);
-    (void)map;
 }
 
 void    initialize_game(t_gameinf *game)
@@ -48,7 +48,7 @@ void    initialize_game(t_gameinf *game)
     game->draw_end = 0;
 }
 
-int     seek_spawn(t_map *map, t_gameinf *game)
+int     seek_spawn(t_gameinf *game)
 {
     int i;
     int j;
@@ -56,12 +56,12 @@ int     seek_spawn(t_map *map, t_gameinf *game)
 
     i = 0;
     j = 0;
-    while (map->map[i])
+    while (game->map[i])
     {
         j = 0;
-        while (map->map[i][j])
+        while (game->map[i][j])
         {
-            act = map->map[i][j];
+            act = game->map[i][j];
             if (act && (act == 'N' || act == 'S' || act == 'E' || act == 'W'))
             {
                 game->pos_y = i;
@@ -96,20 +96,16 @@ int     seek_spawn(t_map *map, t_gameinf *game)
     return (0);
 }
 
-void    *start_ray(t_map *map)
+void    *start_ray(t_gameinf *game)
 {
-    t_gameinf   *game;
-
-    if (!(game = malloc(sizeof(t_gameinf))))
-        return (0);
     initialize_game(game);
     if (!(game->mlx_ptr = mlx_init()))
         return (0);
-    if (!(seek_spawn(map, game)))
-        exit_all(map, game, "Error\nSpawn not found into map");
-    game->win_ptr = mlx_new_window(game->mlx_ptr, map->res_x, map->res_y, "cub");
-    start_game(game, map);
-    set_loops(game, map);
+    if (!(seek_spawn(game)))
+        exit_struct("Error\nSpawn not found into map", game);
+    game->win_ptr = mlx_new_window(game->mlx_ptr, game->res_x, game->res_y, "cub");
+    start_game(game);
+    set_loops(game);
     // mlx_loop(game->mlx_ptr);
     return (0);
 }

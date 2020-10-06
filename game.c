@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Guillaume <Guillaume@student.42.fr>        +#+  +:+       +#+        */
+/*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 16:21:34 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/02 11:31:38 by Guillaume        ###   ########.fr       */
+/*   Updated: 2020/10/06 10:25:54 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void    draw_line(int x, t_map *map, t_gameinf *game)
+void    draw_line(int x, t_gameinf *game)
 {
     int y = 0;
 
@@ -20,12 +20,12 @@ void    draw_line(int x, t_map *map, t_gameinf *game)
         mlx_pixel_put(game->mlx_ptr, game->win_ptr, x, y++, 0x00FF00);
     while (y < game->draw_end)
         mlx_pixel_put(game->mlx_ptr, game->win_ptr, x, y++, 0xFF0000);
-    while (y < map->res_y)
+    while (y < game->res_y)
         mlx_pixel_put(game->mlx_ptr, game->win_ptr, x, y++, 0x0000FF);
 
 }
 
-int    dda_calc(t_map *map, t_gameinf *game)
+int    dda_calc(t_gameinf *game)
 {
     int hit;
     int side;
@@ -45,30 +45,30 @@ int    dda_calc(t_map *map, t_gameinf *game)
             game->square_y += game->step_y;
             side = 1;
         }
-        if (map->map[game->square_y][game->square_x] == '1')
+        if (game->map[game->square_y][game->square_x] == '1')
             hit = 1;
     }
     return (side);
 }
 
-void    basis_calc2(t_map *map, t_gameinf *game, int side)
+void    basis_calc2(t_gameinf *game, int side)
 {
     if (side == 0)
         game->perp_wall_dist = (game->square_x - game->pos_x + (1 - game->step_x) / 2) / game->ray_dir_x;
     else
         game->perp_wall_dist = (game->square_y - game->pos_y + (1 - game->step_y) / 2) / game->ray_dir_y;
-    game->line_height = (int)(map->res_y / game->perp_wall_dist);
-    game->draw_start = (game->line_height * (-1)) / 2 + map->res_y / 2;
+    game->line_height = (int)(game->res_y / game->perp_wall_dist);
+    game->draw_start = (game->line_height * (-1)) / 2 + game->res_y / 2;
     if (game->draw_start < 0)
         game->draw_start = 0;
-    game->draw_end = game->line_height / 2 + map->res_y / 2;
-    if (game->draw_end >= map->res_y)
-        game->draw_end = map->res_y - 1;
+    game->draw_end = game->line_height / 2 + game->res_y / 2;
+    if (game->draw_end >= game->res_y)
+        game->draw_end = game->res_y - 1;
 }
 
-void    basis_calc1(int x, t_map *map, t_gameinf *game)
+void    basis_calc1(int x, t_gameinf *game)
 {
-    game->camera_x = 2 * x / (double)map->res_x - 1;
+    game->camera_x = 2 * x / (double)game->res_x - 1;
     game->ray_dir_x = game->dir_x + game->plane_x * game->camera_x;
     game->ray_dir_y = game->dir_y + game->plane_y * game->camera_x;
     game->square_x = (int)game->pos_x;
@@ -97,16 +97,16 @@ void    basis_calc1(int x, t_map *map, t_gameinf *game)
     }
 }
 
-void    start_game(t_gameinf *game, t_map *map)
+void    start_game(t_gameinf *game)
 {
     int x;
 
     x = 0;
-    while (x < map->res_x)
+    while (x < game->res_x)
     {
-        basis_calc1(x, map, game);
-        basis_calc2(map, game, dda_calc(map, game));
-        draw_line(x, map, game);
+        basis_calc1(x, game);
+        basis_calc2(game, dda_calc(game));
+        draw_line(x, game);
         x++;
     }
 }
