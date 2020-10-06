@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:16:09 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/10/06 10:34:33 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/06 15:47:54 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,13 @@ typedef struct  s_gameinf
     char        **map;
     void        *mlx_ptr;
     void        *win_ptr;
+    int        *img_ptr;
     double      pos_y;
     double      pos_x;
     double      dir_y;
     double      dir_x;
     double      plane_x;
     double      plane_y;
-    double      time;
-    double      old_time;
     double      camera_x;
     double      ray_dir_x;
     double      ray_dir_y;

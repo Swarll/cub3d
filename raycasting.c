@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 14:41:57 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/06 10:33:16 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/06 15:17:46 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,13 @@ void    initialize_game(t_gameinf *game)
 {
     game->mlx_ptr = 0;
     game->win_ptr = 0;
+    game->img_ptr = 0;
     game->pos_y = 0;
     game->pos_x = 0;
     game->dir_x = 0;
     game->dir_y = 0;
     game->plane_x = 0;
     game->plane_y = 0.66;
-    game->time = 0;
-    game->old_time = 0;
     game->camera_x = 0;
     game->ray_dir_x = 0;
     game->ray_dir_y = 0;

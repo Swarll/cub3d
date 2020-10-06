@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 16:21:34 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/06 10:25:54 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/06 15:51:25 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,26 @@
 
 void    draw_line(int x, t_gameinf *game)
 {
-    int y = 0;
-
+    int y;
+    
+    if (!game->img_ptr)
+        game->img_ptr = mlx_new_image(game->mlx_ptr, game->res_x, game->res_y);
+    y = 0;
     while (y < game->draw_start)
-        mlx_pixel_put(game->mlx_ptr, game->win_ptr, x, y++, 0x00FF00);
+    {
+        game->img_ptr[(x + y) * game->res_x] = mlx_get_color_value(game->mlx_ptr, 0x00FF00);
+        y++;
+    }
     while (y < game->draw_end)
-        mlx_pixel_put(game->mlx_ptr, game->win_ptr, x, y++, 0xFF0000);
+    {
+        game->img_ptr[(x + y) * game->res_x] = mlx_get_color_value(game->mlx_ptr, 0xFF0000);
+        y++;
+    }
     while (y < game->res_y)
-        mlx_pixel_put(game->mlx_ptr, game->win_ptr, x, y++, 0x0000FF);
-
+    {
+        game->img_ptr[(x + y) * game->res_x] = mlx_get_color_value(game->mlx_ptr, 0x0000FF);
+        y++;
+    }
 }
 
 int    dda_calc(t_gameinf *game)
@@ -109,4 +120,5 @@ void    start_game(t_gameinf *game)
         draw_line(x, game);
         x++;
     }
+    // mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img_ptr, game->res_x, game->res_y);
 }
