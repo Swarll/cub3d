@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:16:09 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/10/06 15:47:54 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/07 09:18:20 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ typedef struct  s_gameinf
     char        **map;
     void        *mlx_ptr;
     void        *win_ptr;
-    int        *img_ptr;
+    int         *img_ptr;
+    int         *img;
     double      pos_y;
     double      pos_x;
     double      dir_y;

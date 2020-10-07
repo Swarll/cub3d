@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 16:21:34 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/06 15:51:25 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/07 10:03:44 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,23 @@
 void    draw_line(int x, t_gameinf *game)
 {
     int y;
+    int a;
     
     if (!game->img_ptr)
         game->img_ptr = mlx_new_image(game->mlx_ptr, game->res_x, game->res_y);
+    game->img = (int*)mlx_get_data_addr(game->img_ptr, &a, &a, &a);
     y = 0;
     while (y < game->draw_start)
     {
-        game->img_ptr[(x + y) * game->res_x] = mlx_get_color_value(game->mlx_ptr, 0x00FF00);
-        y++;
+        game->img[x + y++ * game->res_x] = 0x00F000;
     }
     while (y < game->draw_end)
     {
-        game->img_ptr[(x + y) * game->res_x] = mlx_get_color_value(game->mlx_ptr, 0xFF0000);
-        y++;
+        game->img[x + y++ * game->res_x] = 0xF00000;
     }
     while (y < game->res_y)
     {
-        game->img_ptr[(x + y) * game->res_x] = mlx_get_color_value(game->mlx_ptr, 0x0000FF);
-        y++;
+        game->img[x + y++ * game->res_x] = 0x0000FF;
     }
 }
 
@@ -120,5 +119,5 @@ void    start_game(t_gameinf *game)
         draw_line(x, game);
         x++;
     }
-    // mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img_ptr, game->res_x, game->res_y);
+    mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img_ptr, 0, 0);
 }

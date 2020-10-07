@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 14:41:57 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/06 15:17:46 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/07 15:34:03 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void    initialize_game(t_gameinf *game)
     game->mlx_ptr = 0;
     game->win_ptr = 0;
     game->img_ptr = 0;
+    game->img = 0;
     game->pos_y = 0;
     game->pos_x = 0;
     game->dir_x = 0;
@@ -63,8 +64,8 @@ int     seek_spawn(t_gameinf *game)
             act = game->map[i][j];
             if (act && (act == 'N' || act == 'S' || act == 'E' || act == 'W'))
             {
-                game->pos_y = i;
-                game->pos_x = j;
+                game->pos_y = i + 0.5;
+                game->pos_x = j + 0.5;
                 if (act == 'E')
                 {
                     game->dir_x = -1;
@@ -77,13 +78,13 @@ int     seek_spawn(t_gameinf *game)
                 }
                 else if (act == 'S')
                 {
-                    game->dir_x = 0;
-                    game->dir_y = 1;
+                    game->dir_x = 2;
+                    game->dir_y = 0;
                 }
-                else
+                else if (act == 'N')
                 {
-                    game->dir_x = 0;
-                    game->dir_y = -1;
+                    game->dir_x = 1;
+                    game->dir_y = 0;
                 }
                 
                 return (1);
