@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 14:41:57 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/07 15:34:03 by grigaux          ###   ########lyon.fr   */
+/*   Updated: 2020/10/08 17:42:44 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void    set_loops(t_gameinf *game)
 {	
     mlx_hook(game->win_ptr, 2, 0, key_press_hook, game);
-	// mlx_hook(v->window, 3, 0, key_release_hook, game, map);
+	mlx_hook(game->win_ptr, 3, 0, key_release_hook, game);
+    mlx_hook(game->win_ptr, 17, 0, destroy, game);
+    mlx_loop_hook(game->mlx_ptr, move_hook, game);
     mlx_loop(game->mlx_ptr);
 }
 
@@ -46,6 +48,12 @@ void    initialize_game(t_gameinf *game)
     game->line_height = 0;
     game->draw_start = 0;
     game->draw_end = 0;
+    game->left_arr = 0;
+    game->right_arr = 0;
+    game->left = 0;
+    game->right = 0;
+    game->forward = 0;
+    game->backward = 0;
 }
 
 int     seek_spawn(t_gameinf *game)
@@ -68,23 +76,31 @@ int     seek_spawn(t_gameinf *game)
                 game->pos_x = j + 0.5;
                 if (act == 'E')
                 {
-                    game->dir_x = -1;
+                    game->dir_x = 1;
                     game->dir_y = 0;
+                    game->plane_x = 0;
+                    game->plane_y = -0.66;
                 }
                 else if (act == 'W')
                 {
-                    game->dir_x = 1;
+                    game->dir_x = -1;
                     game->dir_y = 0;
+                    game->plane_x = 0;
+                    game->plane_y = 0.66;
                 }
                 else if (act == 'S')
                 {
-                    game->dir_x = 2;
-                    game->dir_y = 0;
+                    game->dir_x = 0;
+                    game->dir_y = 1;
+                    game->plane_x = 0.66;
+                    game->plane_y = 0;
                 }
                 else if (act == 'N')
                 {
-                    game->dir_x = 1;
-                    game->dir_y = 0;
+                    game->dir_x = 0;
+                    game->dir_y = -1;
+                    game->plane_x = -0.66;
+                    game->plane_y = 0;
                 }
                 
                 return (1);

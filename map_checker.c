@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 14:52:35 by becentrale        #+#    #+#             */
-/*   Updated: 2020/10/06 10:34:22 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/08 16:15:30 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int     line_checker(t_gameinf *game, int y)
     x = 0;
     while (game->map[y][x])
     {
+        if (ft_isspace(game->map[y][x]) && game->map[y][x - 1] && game->map[y][x - 1] == '0')
+            return (0);
         if (!ft_isspace(game->map[y][x]))
             last_c = game->map[y][x];
         if (game->map[y][x] == '0' && (x == 0 || !(game->map[y-1][x] || 

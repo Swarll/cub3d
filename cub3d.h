@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:16:09 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/10/07 09:18:20 by grigaux          ###   ########lyon.fr   */
+/*   Updated: 2020/10/08 17:43:12 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,6 @@
 # include <math.h>
 # include "./libft/libft.h"
 # include "./minilibx_opengl/mlx.h"
-
-// typedef struct  s_map 
-// {
-//     int         res_x;
-//     int         res_y;
-//     char        *north_path;
-//     char        *south_path;
-//     char        *west_path;
-//     char        *east_path;
-//     char        *sprite_path;
-//     int         floor_color[3];
-//     int         ceiling_color[3];
-//     char        **map;
-// }               t_map;
 
 typedef struct  s_gameinf
 {    
@@ -70,6 +56,12 @@ typedef struct  s_gameinf
     int         line_height;
     int         draw_start;
     int         draw_end;
+    int         left_arr;
+    int         right_arr;
+    int         left;
+    int         right;
+    int         forward;
+    int         backward;
 }               t_gameinf;
 
 
@@ -89,5 +81,8 @@ void    *start_ray(t_gameinf *game);
 void    exit_struct(char *status, t_gameinf *game);
 void    start_game(t_gameinf *game);
 int    key_press_hook(int keycode, t_gameinf *game);
+int     key_release_hook(int keycode, t_gameinf *game);
+int     move_hook(t_gameinf *game);
+int    destroy(t_gameinf *game);
 
 #endif

@@ -1,0 +1,11 @@
+R 560 480
+NO ./img/redbrick.xpm
+SO ./img/bluestone.xpm
+WE ./img/greystone.xpm
+EA ./img/colorstone.xpm
+
+S ./img/barrel.xpm
+F 123,123,123
+C 101,141,34
+
+1
