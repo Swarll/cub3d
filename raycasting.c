@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 14:41:57 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/08 17:42:44 by grigaux          ###   ########lyon.fr   */
+/*   Updated: 2020/10/09 15:59:08 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ void    initialize_game(t_gameinf *game)
     game->right = 0;
     game->forward = 0;
     game->backward = 0;
+    game->text_n = 0;
+    game->text_s = 0;
+    game->text_w = 0;
+    game->text_e = 0;
 }
 
 int     seek_spawn(t_gameinf *game)
@@ -120,6 +124,8 @@ void    *start_ray(t_gameinf *game)
     if (!(seek_spawn(game)))
         exit_struct("Error\nSpawn not found into map", game);
     game->win_ptr = mlx_new_window(game->mlx_ptr, game->res_x, game->res_y, "cub");
+    if (!(set_text(game)))
+        exit_struct("Error\nError with textures", game);
     start_game(game);
     set_loops(game);
     // mlx_loop(game->mlx_ptr);

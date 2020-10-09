@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:16:09 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/10/08 17:43:12 by grigaux          ###   ########lyon.fr   */
+/*   Updated: 2020/10/09 15:58:39 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ typedef struct  s_gameinf
     int         right;
     int         forward;
     int         backward;
+    int         *text_n;
+    int         *text_s;
+    int         *text_w;
+    int         *text_e;
 }               t_gameinf;
 
 
@@ -84,5 +88,6 @@ int    key_press_hook(int keycode, t_gameinf *game);
 int     key_release_hook(int keycode, t_gameinf *game);
 int     move_hook(t_gameinf *game);
 int    destroy(t_gameinf *game);
+int     set_text(t_gameinf *game);
 
 #endif

@@ -6,13 +6,60 @@
 /*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 16:21:34 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/07 10:03:44 by grigaux          ###   ########lyon.fr   */
+/*   Updated: 2020/10/09 17:05:22 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void    draw_line(int x, t_gameinf *game)
+void    draw_text(t_gameinf *game, int x, int y, int side)
+{
+    double wall_x;
+    if (side == 0)
+        wall_x = game->pos_y + game->perp_wall_dist * game->ray_dir_y;
+    else
+        wall_x = game->pos_x + game->perp_wall_dist * game->ray_dir_x;
+
+    int text_x = (int)wall_x * (double)64;
+    if (side == 0 && game->ray_dir_x >= 0)
+        text_x = 64 - text_x - 1;
+    if (side == 1 && game->ray_dir_y < 0)
+        text_x = 64 - text_x - 1;
+    double step = 1.0 * 64 / game->line_height;
+    double text_pos = game->draw_start - game->line_height / 2 + step;
+    while (y < game->draw_end)
+    {
+        int text_y = (int)text_pos & (64 - 1);
+        text_y += step;
+        if (side == 0)
+        {
+            if (game->dir_x >= 0)
+            {        
+                game->img[x + y++ * game->res_x] = game->text_e[64 * text_y + text_x];
+            }
+            else
+            {
+                game->img[x + y++ * game->res_x] = game->text_w[64 * text_y + text_x];
+            }
+            
+        }
+        else
+        {
+            if (game->dir_y >= 0)
+            {
+                game->img[x + y++ * game->res_x] = game->text_s[64 * text_y + text_x];
+            }
+            else
+            {
+                game->img[x + y++ * game->res_x] = game->text_n[64 * text_y + text_x];
+            }
+            
+        }
+    }
+    
+}
+
+void    draw_line(int x, t_gameinf *game, int side)
 {
     int y;
     int a;
@@ -25,9 +72,9 @@ void    draw_line(int x, t_gameinf *game)
     {
         game->img[x + y++ * game->res_x] = 0x00F000;
     }
-    while (y < game->draw_end)
+    if (y < game->draw_end)
     {
-        game->img[x + y++ * game->res_x] = 0xF00000;
+        draw_text(game, x, y, side);
     }
     while (y < game->res_y)
     {
@@ -110,13 +157,15 @@ void    basis_calc1(int x, t_gameinf *game)
 void    start_game(t_gameinf *game)
 {
     int x;
+    int side;
 
     x = 0;
     while (x < game->res_x)
     {
         basis_calc1(x, game);
-        basis_calc2(game, dda_calc(game));
-        draw_line(x, game);
+        side = dda_calc(game);
+        basis_calc2(game, side);
+        draw_line(x, game, side);
         x++;
     }
     mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img_ptr, 0, 0);
