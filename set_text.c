@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 15:56:34 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/09 17:10:34 by grigaux          ###   ########lyon.fr   */
+/*   Updated: 2020/10/13 15:14:47 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,29 @@
 
 int     set_text(t_gameinf *game)
 {
-    void    *tmp;
-    int a;
+    game->texts[0].text_v = mlx_xpm_file_to_image(game->mlx_ptr, 
+        game->north_path, &game->texts[0].size_x, &game->texts[0].size_y);
+    game->texts[0].text_c = mlx_get_data_addr(game->texts[0].text_v, 
+        &game->texts[0].bpp, &game->texts[0].sl, &game->texts[0].end);
+    game->texts[0].text_i = (int*)game->texts[0].text_c;
 
+    game->texts[1].text_v = mlx_xpm_file_to_image(game->mlx_ptr, 
+        game->south_path, &game->texts[1].size_x, &game->texts[1].size_y);
+    game->texts[1].text_c = mlx_get_data_addr(game->texts[1].text_v, 
+        &game->texts[1].bpp, &game->texts[1].sl, &game->texts[1].end);
+    game->texts[1].text_i = (int*)game->texts[1].text_c;
 
-    printf("segv\n");
-    tmp = mlx_xpm_file_to_image(game->mlx_ptr, game->north_path, &a, &a);
-    game->text_n = (int *)mlx_get_data_addr(tmp, &a, &a, &a);
-    tmp = mlx_xpm_file_to_image(game->mlx_ptr, game->south_path, &a, &a);
-    game->text_s = (int *)mlx_get_data_addr(tmp, &a, &a, &a);
-    tmp = mlx_xpm_file_to_image(game->mlx_ptr, game->east_path, &a, &a);
-    game->text_e = (int *)mlx_get_data_addr(tmp, &a, &a, &a);
-    tmp = mlx_xpm_file_to_image(game->mlx_ptr, game->west_path, &a, &a);
-    game->text_w = (int *)mlx_get_data_addr(tmp, &a, &a, &a);
-    printf("nosegv\n");
-    // game->text_s = mlx_xpm_file_to_image(game->mlx_ptr, game->south_path, 0, 0);
-    // game->text_e = mlx_xpm_file_to_image(game->mlx_ptr, game->east_path, 0, 0);
-    // game->text_w = mlx_xpm_file_to_image(game->mlx_ptr, game->west_path, 0, 0);
+    game->texts[2].text_v = mlx_xpm_file_to_image(game->mlx_ptr, 
+        game->east_path, &game->texts[2].size_x, &game->texts[2].size_y);
+    game->texts[2].text_c = mlx_get_data_addr(game->texts[2].text_v, 
+        &game->texts[2].bpp, &game->texts[2].sl, &game->texts[2].end);
+    game->texts[2].text_i = (int*)game->texts[2].text_c;
+
+    game->texts[3].text_v = mlx_xpm_file_to_image(game->mlx_ptr, 
+        game->west_path, &game->texts[3].size_x, &game->texts[3].size_y);
+    game->texts[3].text_c = mlx_get_data_addr(game->texts[3].text_v, 
+        &game->texts[3].bpp, &game->texts[3].sl, &game->texts[3].end);
+    game->texts[3].text_i = (int*)game->texts[3].text_c;
+
     return (1);
 }

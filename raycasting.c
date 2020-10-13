@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 14:41:57 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/09 15:59:08 by grigaux          ###   ########lyon.fr   */
+/*   Updated: 2020/10/13 15:14:58 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,25 @@ void    set_loops(t_gameinf *game)
     mlx_hook(game->win_ptr, 17, 0, destroy, game);
     mlx_loop_hook(game->mlx_ptr, move_hook, game);
     mlx_loop(game->mlx_ptr);
+}
+
+void    init_text(t_gameinf *game)
+{
+    int i;
+
+    i = 0;
+    while (i < 4)
+    {
+        game->texts[i].text_v = 0;
+        game->texts[i].text_c = 0;
+        game->texts[i].text_i = 0;
+        game->texts[i].size_x = 0;
+        game->texts[i].size_y = 0;
+        game->texts[i].bpp = 0;
+        game->texts[i].sl = 0;
+        game->texts[i].end = 0;
+        i++;
+    }
 }
 
 void    initialize_game(t_gameinf *game)
@@ -54,10 +73,7 @@ void    initialize_game(t_gameinf *game)
     game->right = 0;
     game->forward = 0;
     game->backward = 0;
-    game->text_n = 0;
-    game->text_s = 0;
-    game->text_w = 0;
-    game->text_e = 0;
+    init_text(game);
 }
 
 int     seek_spawn(t_gameinf *game)
@@ -128,6 +144,5 @@ void    *start_ray(t_gameinf *game)
         exit_struct("Error\nError with textures", game);
     start_game(game);
     set_loops(game);
-    // mlx_loop(game->mlx_ptr);
     return (0);
 }

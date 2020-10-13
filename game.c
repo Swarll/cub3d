@@ -6,56 +6,60 @@
 /*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 16:21:34 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/09 17:05:22 by grigaux          ###   ########lyon.fr   */
+/*   Updated: 2020/10/13 15:13:13 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void    draw_text(t_gameinf *game, int x, int y, int side)
+t_text seek_text(t_gameinf *game, int side)
+{
+    if (side == 0)
+    {
+        if (game->ray_dir_x > 0)
+            return (game->texts[2]);
+        else
+            return (game->texts[3]);
+    }
+    else
+    {
+        if (game->ray_dir_y > 0)
+            return (game->texts[1]);
+        else
+            return (game->texts[0]);
+    }
+    
+}
+
+int    draw_text(t_gameinf *game, int x, int y, int side)
 {
     double wall_x;
+    int text_x;
+    double step;
+    double text_pos;
+    int text_y;
+    t_text text;
+
+    text = seek_text(game, side);
     if (side == 0)
         wall_x = game->pos_y + game->perp_wall_dist * game->ray_dir_y;
     else
         wall_x = game->pos_x + game->perp_wall_dist * game->ray_dir_x;
-
-    int text_x = (int)wall_x * (double)64;
-    if (side == 0 && game->ray_dir_x >= 0)
-        text_x = 64 - text_x - 1;
+    wall_x -= floor((wall_x));
+    text_x = (int)(wall_x * (double)text.size_x);
+    if (side == 0 && game->ray_dir_x > 0)
+        text_x = text.size_x - text_x - 1;
     if (side == 1 && game->ray_dir_y < 0)
-        text_x = 64 - text_x - 1;
-    double step = 1.0 * 64 / game->line_height;
-    double text_pos = game->draw_start - game->line_height / 2 + step;
+        text_x = text.size_x - text_x - 1;
+    step = 1.0 * text.size_y / game->line_height;
+    text_pos = (game->draw_start - game->res_y / 2 + game->line_height / 2) * step;
     while (y < game->draw_end)
     {
-        int text_y = (int)text_pos & (64 - 1);
-        text_y += step;
-        if (side == 0)
-        {
-            if (game->dir_x >= 0)
-            {        
-                game->img[x + y++ * game->res_x] = game->text_e[64 * text_y + text_x];
-            }
-            else
-            {
-                game->img[x + y++ * game->res_x] = game->text_w[64 * text_y + text_x];
-            }
-            
-        }
-        else
-        {
-            if (game->dir_y >= 0)
-            {
-                game->img[x + y++ * game->res_x] = game->text_s[64 * text_y + text_x];
-            }
-            else
-            {
-                game->img[x + y++ * game->res_x] = game->text_n[64 * text_y + text_x];
-            }
-            
-        }
+        text_y = (int)text_pos & (text.size_y - 1);
+        text_pos += step;
+        game->img[x + y++ * game->res_x] = text.text_i[text.size_y * text_y + text_x];
     }
+    return (y);
     
 }
 
@@ -74,7 +78,7 @@ void    draw_line(int x, t_gameinf *game, int side)
     }
     if (y < game->draw_end)
     {
-        draw_text(game, x, y, side);
+        y = draw_text(game, x, y, side);
     }
     while (y < game->res_y)
     {

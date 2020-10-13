@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:14:03 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/10/06 10:31:19 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/13 15:08:42 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,17 @@ void    handle_dot_cub(char *argv, t_gameinf *game)
 
 int main(int argc, char *argv[])
 {
-    t_gameinf   *game;
+    t_gameinf   game;
 
     if (argc == 2 && argv[0] != 0)
     {
-        if (!(game = malloc(sizeof(t_gameinf))))
+        // if (!(game = malloc(sizeof(t_gameinf))))
+        //     return (0);
+        handle_dot_cub(argv[1], &game);
+        if (!(start_ray(&game)))
             return (0);
-        handle_dot_cub(argv[1], game);
-        if (!(start_ray(game)))
-            return (0);
-        if (game)
-            free_struct(game);
+        // if (game)
+        //     free_struct(&game);
     }
     return(0);
 }

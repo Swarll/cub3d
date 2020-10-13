@@ -1,8 +1,8 @@
 R 1920 1080
-NO ./text/bluestone.png
-SO ./text/colorstone.png
-WE ./text/redbrick.png
-EA ./text/wood.png
+NO ./tests/text/bluestone.xpm
+SO ./tests/text/colorstone.xpm
+WE ./tests/text/redbrick.xpm
+EA ./tests/text/greystone.xpm
 
 S ./path_to_the_sprite_texture
 F 220,100,0
