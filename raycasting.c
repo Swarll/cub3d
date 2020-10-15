@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 14:41:57 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/13 15:14:58 by grigaux          ###   ########lyon.fr   */
+/*   Updated: 2020/10/15 17:28:16 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void    init_text(t_gameinf *game)
     int i;
 
     i = 0;
-    while (i < 4)
+    while (i < 5)
     {
         game->texts[i].text_v = 0;
         game->texts[i].text_c = 0;
@@ -99,27 +99,27 @@ int     seek_spawn(t_gameinf *game)
                     game->dir_x = 1;
                     game->dir_y = 0;
                     game->plane_x = 0;
-                    game->plane_y = -0.66;
+                    game->plane_y = 0.66;
                 }
                 else if (act == 'W')
                 {
                     game->dir_x = -1;
                     game->dir_y = 0;
                     game->plane_x = 0;
-                    game->plane_y = 0.66;
+                    game->plane_y = -0.66;
                 }
                 else if (act == 'S')
                 {
                     game->dir_x = 0;
                     game->dir_y = 1;
-                    game->plane_x = 0.66;
+                    game->plane_x = -0.66;
                     game->plane_y = 0;
                 }
                 else if (act == 'N')
                 {
                     game->dir_x = 0;
                     game->dir_y = -1;
-                    game->plane_x = -0.66;
+                    game->plane_x = 0.66;
                     game->plane_y = 0;
                 }
                 
@@ -134,11 +134,11 @@ int     seek_spawn(t_gameinf *game)
 
 void    *start_ray(t_gameinf *game)
 {
-    initialize_game(game);
     if (!(game->mlx_ptr = mlx_init()))
         return (0);
     if (!(seek_spawn(game)))
         exit_struct("Error\nSpawn not found into map", game);
+    set_sprites(&game);
     game->win_ptr = mlx_new_window(game->mlx_ptr, game->res_x, game->res_y, "cub");
     if (!(set_text(game)))
         exit_struct("Error\nError with textures", game);

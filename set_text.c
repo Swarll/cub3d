@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 15:56:34 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/13 15:14:47 by grigaux          ###   ########lyon.fr   */
+/*   Updated: 2020/10/15 15:23:24 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ int     set_text(t_gameinf *game)
     game->texts[3].text_c = mlx_get_data_addr(game->texts[3].text_v, 
         &game->texts[3].bpp, &game->texts[3].sl, &game->texts[3].end);
     game->texts[3].text_i = (int*)game->texts[3].text_c;
+
+    game->texts[4].text_v = mlx_xpm_file_to_image(game->mlx_ptr, 
+        game->sprite_path, &game->texts[4].size_x, &game->texts[4].size_y);
+    game->texts[4].text_c = mlx_get_data_addr(game->texts[4].text_v, 
+        &game->texts[4].bpp, &game->texts[4].sl, &game->texts[4].end);
+    game->texts[4].text_i = (int*)game->texts[4].text_c;
 
     return (1);
 }

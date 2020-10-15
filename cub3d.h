@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:16:09 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/10/13 15:05:32 by grigaux          ###   ########lyon.fr   */
+/*   Updated: 2020/10/15 17:00:41 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ typedef struct  s_text
     int     sl;
     int     end;
 }               t_text;
+
+typedef struct  s_sprite
+{
+    int x;
+    int y;
+    int dist;
+}               t_sprite;
+
 
 typedef struct  s_gameinf
 {    
@@ -74,7 +82,8 @@ typedef struct  s_gameinf
     int         right;
     int         forward;
     int         backward;
-    t_text      texts[4];
+    t_text      texts[5];
+    t_sprite    *sprites;
 }               t_gameinf;
 
 
@@ -82,7 +91,8 @@ typedef struct  s_gameinf
 char    *handle_line(char *line, t_gameinf *game);
 int     free_struct(t_gameinf *game);
 int     is_number(char  *num);
-void    initialize_map(t_gameinf *game);
+void    initialize_map(t_gameinf *game); ///////// reunir en une fonct
+void    initialize_game(t_gameinf *game);
 int     map_size(char   **map);
 void    free_d_p(char **to_free);
 int     boundaries_checker(t_gameinf *game, int y);
@@ -98,5 +108,6 @@ int     key_release_hook(int keycode, t_gameinf *game);
 int     move_hook(t_gameinf *game);
 int     destroy(t_gameinf *game);
 int     set_text(t_gameinf *game);
+void     set_sprites(t_gameinf *game);
 
 #endif

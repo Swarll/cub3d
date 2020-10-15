@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 16:21:34 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/13 15:13:13 by grigaux          ###   ########lyon.fr   */
+/*   Updated: 2020/10/15 15:51:07 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void    draw_line(int x, t_gameinf *game, int side)
     y = 0;
     while (y < game->draw_start)
     {
-        game->img[x + y++ * game->res_x] = 0x00F000;
+        game->img[x + y++ * game->res_x] = 0x00F000; ////////changer avec couleurs du .cub
     }
     if (y < game->draw_end)
     {
@@ -82,7 +82,7 @@ void    draw_line(int x, t_gameinf *game, int side)
     }
     while (y < game->res_y)
     {
-        game->img[x + y++ * game->res_x] = 0x0000FF;
+        game->img[x + y++ * game->res_x] = 0x0000FF; ////////changer avec couleurs du .cub
     }
 }
 

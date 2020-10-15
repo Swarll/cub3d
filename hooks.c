@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 12:47:03 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/10/09 15:05:13 by grigaux          ###   ########lyon.fr   */
+/*   Updated: 2020/10/15 15:49:50 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,21 @@ int     move_hook(t_gameinf *game)
     if (game->right_arr)
     {
         old_dir_x = game->dir_x;
-        game->dir_x = game->dir_x * cos(rot_speed) - game->dir_y * sin(rot_speed);
-        game->dir_y = old_dir_x * sin(rot_speed) + game->dir_y * cos(rot_speed);
-        old_plane_x = game->plane_x;
-        game->plane_x = game->plane_x * cos(rot_speed) - game->plane_y * sin(rot_speed);
-        game->plane_y = old_plane_x * sin(rot_speed) + game->plane_y * cos(rot_speed);
-        start_game(game);
-    }
-    if (game->left_arr)
-    {
-        old_dir_x = game->dir_x;
         game->dir_x = game->dir_x * cos(-rot_speed) - game->dir_y * sin(-rot_speed);
         game->dir_y = old_dir_x * sin(-rot_speed) + game->dir_y * cos(-rot_speed);
         old_plane_x = game->plane_x;
         game->plane_x = game->plane_x * cos(-rot_speed) - game->plane_y * sin(-rot_speed);
         game->plane_y = old_plane_x * sin(-rot_speed) + game->plane_y * cos(-rot_speed);
+        start_game(game);
+    }
+    if (game->left_arr)
+    {
+        old_dir_x = game->dir_x;
+        game->dir_x = game->dir_x * cos(rot_speed) - game->dir_y * sin(rot_speed);
+        game->dir_y = old_dir_x * sin(rot_speed) + game->dir_y * cos(rot_speed);
+        old_plane_x = game->plane_x;
+        game->plane_x = game->plane_x * cos(rot_speed) - game->plane_y * sin(rot_speed);
+        game->plane_y = old_plane_x * sin(rot_speed) + game->plane_y * cos(rot_speed);
         start_game(game);
     }
     if (game->forward)
@@ -108,22 +108,22 @@ int     move_hook(t_gameinf *game)
     }
     if (game->left)
     {
-        if (game->map[(int)game->pos_y][(int)(game->pos_x - game->dir_y * move_speed)] &&
-        game->map[(int)game->pos_y][(int)(game->pos_x - game->dir_y * move_speed)] != '1')
-            game->pos_x -= game->dir_y * move_speed;
-        if (game->map[(int)(game->pos_y + game->dir_x * move_speed)][(int)game->pos_x] &&
-        game->map[(int)(game->pos_y + game->dir_x * move_speed)][(int)game->pos_x] != '1')
-            game->pos_y += game->dir_x * move_speed;
-        start_game(game);
-    }
-    if (game->right)
-    {
         if (game->map[(int)(game->pos_y + game->dir_x * move_speed)][(int)game->pos_x] &&
         game->map[(int)(game->pos_y + game->dir_x * move_speed)][(int)game->pos_x] != '1')
             game->pos_x += game->dir_y * move_speed;
         if (game->map[(int)game->pos_y][(int)(game->pos_x - game->dir_y * move_speed)] &&
         game->map[(int)game->pos_y][(int)(game->pos_x - game->dir_y * move_speed)] != '1')
             game->pos_y -= game->dir_x * move_speed;
+        start_game(game);
+    }
+    if (game->right)
+    {
+        if (game->map[(int)game->pos_y][(int)(game->pos_x - game->dir_y * move_speed)] &&
+        game->map[(int)game->pos_y][(int)(game->pos_x - game->dir_y * move_speed)] != '1')
+            game->pos_x -= game->dir_y * move_speed;
+        if (game->map[(int)(game->pos_y + game->dir_x * move_speed)][(int)game->pos_x] &&
+        game->map[(int)(game->pos_y + game->dir_x * move_speed)][(int)game->pos_x] != '1')
+            game->pos_y += game->dir_x * move_speed;
         start_game(game);
     }
     return (0);

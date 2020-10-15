@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:14:03 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/10/13 15:08:42 by grigaux          ###   ########lyon.fr   */
+/*   Updated: 2020/10/15 17:28:24 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
     {
         // if (!(game = malloc(sizeof(t_gameinf))))
         //     return (0);
+        initialize_game(&game);
         handle_dot_cub(argv[1], &game);
         if (!(start_ray(&game)))
             return (0);
