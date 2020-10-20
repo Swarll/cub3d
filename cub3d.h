@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:16:09 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/10/15 17:00:41 by grigaux          ###   ########lyon.fr   */
+/*   Updated: 2020/10/20 14:19:36 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ typedef struct  s_text
 
 typedef struct  s_sprite
 {
-    int x;
-    int y;
-    int dist;
+    double x;
+    double y;
+    double dist;
 }               t_sprite;
 
 
@@ -109,5 +109,7 @@ int     move_hook(t_gameinf *game);
 int     destroy(t_gameinf *game);
 int     set_text(t_gameinf *game);
 void     set_sprites(t_gameinf *game);
+void    sort_sprites(t_gameinf *game, int count);
+int  count_sprites(t_gameinf *game);
 
 #endif

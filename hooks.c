@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 12:47:03 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/10/15 15:49:50 by grigaux          ###   ########lyon.fr   */
+/*   Updated: 2020/10/20 11:54:26 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,12 @@ int     move_hook(t_gameinf *game)
     double move_speed;
     double old_dir_x;
     double old_plane_x;
+    int mod_x;
+    int mod_y;
 
     rot_speed = 0.02;
     move_speed = 0.05;
+
     if (game->right_arr)
     {
         old_dir_x = game->dir_x;
@@ -86,43 +89,51 @@ int     move_hook(t_gameinf *game)
         game->plane_y = old_plane_x * sin(rot_speed) + game->plane_y * cos(rot_speed);
         start_game(game);
     }
+
+    mod_y = 1;
+    mod_x = 1;
+    if (game->dir_y < 0)
+        mod_y = -1;
+    if (game->dir_x < 0)
+        mod_x = -1;
+
     if (game->forward)
     {
-        if (game->map[(int)game->pos_y][(int)(game->pos_x + game->dir_x * move_speed)] &&
-        game->map[(int)(game->pos_y)][(int)((game->pos_x) + game->dir_x * move_speed)] != '1')
+        if (game->map[(int)game->pos_y][(int)(game->pos_x + (0.2 * mod_x) + game->dir_x * move_speed)] &&
+        game->map[(int)(game->pos_y)][(int)(game->pos_x + (0.2 * mod_x) + game->dir_x * move_speed)] != '1')
             game->pos_x += game->dir_x * move_speed;
-        if (game->map[(int)(game->pos_y + game->dir_y * move_speed)][(int)game->pos_x] &&
-        game->map[(int)(game->pos_y  + game->dir_y * move_speed)][(int)(game->pos_x)] != '1')
+        if (game->map[(int)(game->pos_y + (0.2 * mod_y) + game->dir_y * move_speed)][(int)game->pos_x] &&
+        game->map[(int)(game->pos_y + (0.2 * mod_y)  + game->dir_y * move_speed)][(int)(game->pos_x)] != '1')
             game->pos_y += game->dir_y * move_speed;
         start_game(game);
     }
     if (game->backward)
     {
-        if (game->map[(int)game->pos_y][(int)(game->pos_x - game->dir_x * move_speed)] &&
-        game->map[(int)game->pos_y][(int)(game->pos_x - game->dir_x * move_speed)] != '1')
+        if (game->map[(int)game->pos_y][(int)(game->pos_x - (0.2 * mod_x) - game->dir_x * move_speed)] &&
+        game->map[(int)game->pos_y][(int)(game->pos_x - (0.2 * mod_x) - game->dir_x * move_speed)] != '1')
             game->pos_x -= game->dir_x * move_speed;
-        if (game->map[(int)(game->pos_y - game->dir_y * move_speed)][(int)game->pos_x] &&
-        game->map[(int)(game->pos_y - game->dir_y * move_speed)][(int)game->pos_x] != '1')
+        if (game->map[(int)(game->pos_y - (0.2 * mod_y) - game->dir_y * move_speed)][(int)game->pos_x] &&
+        game->map[(int)(game->pos_y - (0.2 * mod_y) - game->dir_y * move_speed)][(int)game->pos_x] != '1')
             game->pos_y -= game->dir_y * move_speed;
         start_game(game);
     }
     if (game->left)
     {
-        if (game->map[(int)(game->pos_y + game->dir_x * move_speed)][(int)game->pos_x] &&
-        game->map[(int)(game->pos_y + game->dir_x * move_speed)][(int)game->pos_x] != '1')
-            game->pos_x += game->dir_y * move_speed;
-        if (game->map[(int)game->pos_y][(int)(game->pos_x - game->dir_y * move_speed)] &&
-        game->map[(int)game->pos_y][(int)(game->pos_x - game->dir_y * move_speed)] != '1')
+        if (game->map[(int)(game->pos_y + (0.2 * mod_y) - game->dir_x * move_speed)][(int)game->pos_x] &&
+        game->map[(int)(game->pos_y + (0.2 * mod_y) - game->dir_x * move_speed)][(int)game->pos_x] != '1')
             game->pos_y -= game->dir_x * move_speed;
+        if (game->map[(int)game->pos_y][(int)(game->pos_x - (0.2 * mod_x) + game->dir_y * move_speed)] &&
+        game->map[(int)game->pos_y][(int)(game->pos_x - (0.2 * mod_x) + game->dir_y * move_speed)] != '1')
+            game->pos_x += game->dir_y * move_speed;
         start_game(game);
     }
     if (game->right)
     {
-        if (game->map[(int)game->pos_y][(int)(game->pos_x - game->dir_y * move_speed)] &&
-        game->map[(int)game->pos_y][(int)(game->pos_x - game->dir_y * move_speed)] != '1')
+        if (game->map[(int)game->pos_y][(int)(game->pos_x + (0.2 * mod_x) - game->dir_y * move_speed)] &&
+        game->map[(int)game->pos_y][(int)(game->pos_x + (0.2 * mod_x) - game->dir_y * move_speed)] != '1')
             game->pos_x -= game->dir_y * move_speed;
-        if (game->map[(int)(game->pos_y + game->dir_x * move_speed)][(int)game->pos_x] &&
-        game->map[(int)(game->pos_y + game->dir_x * move_speed)][(int)game->pos_x] != '1')
+        if (game->map[(int)(game->pos_y + (0.2 * mod_y) + game->dir_x * move_speed)][(int)game->pos_x] &&
+        game->map[(int)(game->pos_y + (0.2 * mod_y) + game->dir_x * move_speed)][(int)game->pos_x] != '1')
             game->pos_y += game->dir_x * move_speed;
         start_game(game);
     }

@@ -6,11 +6,80 @@
 /*   By: grigaux <grigaux@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 16:21:34 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/15 15:51:07 by grigaux          ###   ########lyon.fr   */
+/*   Updated: 2020/10/20 15:08:04 by grigaux          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void    draw_sprites(t_gameinf *game, int count)
+{
+    int i;
+    int y;
+    double sprite_x;
+    double sprite_y;
+    double invDet;
+    double transform_x;
+    double transform_y;
+    int sprite_screen_x;
+    int sprite_height;
+    int draw_start_y;
+    int draw_start_x;
+    int draw_end_y;
+    int draw_end_x;
+    int sprite_width;
+    int stripe;
+
+    i = 0;
+    sort_sprites(game, count);
+    while (i < count)
+    {
+        sprite_x = game->sprites[i].x - game->pos_x;
+        sprite_y = game->sprites[i].y - game->pos_y;
+        invDet = 1.0 / (game->plane_x * game->dir_y - game->dir_x * game->plane_y);
+        transform_x = invDet * (game->dir_y * sprite_x - game->dir_x * sprite_y);
+        transform_y = invDet * (-game->plane_y * sprite_x + game->plane_x * sprite_y);
+
+        sprite_screen_x = (int)((game->res_x / 2) * (1 + transform_x / transform_y));
+
+        sprite_height = abs((int)(game->res_y / transform_y));
+        draw_start_y = -sprite_height / 2 + game->res_y / 2;
+        if (draw_start_y < 0)
+            draw_start_y = 0;
+        draw_end_y = sprite_height / 2 + game->res_y / 2;
+        if (draw_end_y >= game->res_y)
+            draw_end_y = game->res_y - 1;
+        
+        sprite_width = abs((int)(game->res_y / transform_y));
+        draw_start_x = -sprite_width / 2 + sprite_screen_x;
+        if (draw_start_x < 0)
+            draw_start_x = 0;
+        draw_end_x = sprite_width / 2 + sprite_screen_x;
+        if (draw_end_x >= game->res_x)
+            draw_end_x = game->res_x - 1;
+        
+        stripe = draw_start_x;
+        while (stripe < draw_end_x)
+        {
+            int tex_x = (int)(256 * (stripe - (-sprite_width / 2 + sprite_screen_x)) * game->texts[4].size_x / sprite_width / 256);
+            if (transform_y > 0 && stripe > 0 && stripe < game->res_x && game->img[stripe])
+            {
+                y = draw_start_y;
+                while (y < draw_end_y)
+                {
+                    int d = (y) * 256 - game->res_y * 128 + sprite_height * 128;
+                    int tex_y = ((d * game->texts[4].size_y) / sprite_height / 256);
+                    if (game->texts[4].text_i[game->texts[4].size_x * tex_y + tex_x])
+                        game->img[stripe + y++ * game->res_x] = game->texts[4].text_i[game->texts[4].size_x * tex_y + tex_x];
+                    else
+                        y++;
+                }
+            }
+            stripe++;
+        }
+        i++;
+    }
+}
 
 t_text seek_text(t_gameinf *game, int side)
 {
@@ -172,5 +241,6 @@ void    start_game(t_gameinf *game)
         draw_line(x, game, side);
         x++;
     }
+    draw_sprites(game, count_sprites(game));
     mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img_ptr, 0, 0);
 }
