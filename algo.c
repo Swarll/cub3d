@@ -6,13 +6,13 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 16:21:34 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/21 14:44:00 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/22 19:03:27 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int    dda_calc(t_gameinf *game)
+int		dda_calc(t_gameinf *game)
 {
 	int hit;
 	int side;
@@ -38,12 +38,14 @@ int    dda_calc(t_gameinf *game)
 	return (side);
 }
 
-void    after_dda(t_gameinf *game, int side)
+void	after_dda(t_gameinf *game, int side)
 {
 	if (side == 0)
-		game->perp_wall_dist = (game->square_x - game->pos_x + (1 - game->step_x) / 2) / game->ray_dir_x;
+		game->perp_wall_dist = (game->square_x - game->pos_x + (1 -
+			game->step_x) / 2) / game->ray_dir_x;
 	else
-		game->perp_wall_dist = (game->square_y - game->pos_y + (1 - game->step_y) / 2) / game->ray_dir_y;
+		game->perp_wall_dist = (game->square_y - game->pos_y + (1 -
+			game->step_y) / 2) / game->ray_dir_y;
 	game->line_height = (int)(game->res_y / game->perp_wall_dist);
 	game->draw_start = (game->line_height * (-1)) / 2 + game->res_y / 2;
 	if (game->draw_start < 0)
@@ -63,7 +65,8 @@ void	before_dda2(t_gameinf *game)
 	else
 	{
 		game->step_x = 1;
-		game->side_dist_x = (game->square_x + 1.0 - game->pos_x) * game->delta_dist_x;
+		game->side_dist_x = (game->square_x + 1.0 - game->pos_x) *
+			game->delta_dist_x;
 	}
 	if (game->ray_dir_y < 0)
 	{
@@ -73,11 +76,12 @@ void	before_dda2(t_gameinf *game)
 	else
 	{
 		game->step_y = 1;
-		game->side_dist_y = (game->square_y + 1.0 - game->pos_y) * game->delta_dist_y;
+		game->side_dist_y = (game->square_y + 1.0 - game->pos_y) *
+			game->delta_dist_y;
 	}
 }
 
-void    before_dda(int x, t_gameinf *game)
+void	before_dda(int x, t_gameinf *game)
 {
 	game->camera_x = 2 * x / (double)game->res_x - 1;
 	game->ray_dir_x = game->dir_x + game->plane_x * game->camera_x;
@@ -89,10 +93,10 @@ void    before_dda(int x, t_gameinf *game)
 	before_dda2(game);
 }
 
-void    start_algo(t_gameinf *game)
+void	start_algo(t_gameinf *game)
 {
 	int		x;
-	int 	side;
+	int		side;
 	double	z_buffer[game->res_x];
 
 	x = 0;

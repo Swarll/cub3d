@@ -6,24 +6,24 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 16:49:43 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/21 14:31:58 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/22 18:59:49 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-double  get_dist(t_gameinf *game, t_sprite sprite)
+double	get_dist(t_gameinf *game, t_sprite sprite)
 {
-	return ((game->pos_x - sprite.x ) * (game->pos_x - sprite.x) +
+	return ((game->pos_x - sprite.x) * (game->pos_x - sprite.x) +
 		(game->pos_y - sprite.y) * (game->pos_y - sprite.y));
 }
 
-void    sort_sprites(t_gameinf *game, int count)
+void	sort_sprites(t_gameinf *game, int count)
 {
-	int i;
-	int j;
-	int swapped;
-	t_sprite tmp;
+	int			i;
+	int			j;
+	int			swapped;
+	t_sprite	tmp;
 
 	i = 0;
 	j = 1;
@@ -47,7 +47,7 @@ void    sort_sprites(t_gameinf *game, int count)
 	}
 }
 
-void    update_sprites(t_gameinf *game, int count)
+void	update_sprites(t_gameinf *game, int count)
 {
 	int i;
 
@@ -60,7 +60,7 @@ void    update_sprites(t_gameinf *game, int count)
 	sort_sprites(game, count);
 }
 
-int  count_sprites(t_gameinf *game)
+int		count_sprites(t_gameinf *game)
 {
 	int y;
 	int x;
@@ -83,7 +83,7 @@ int  count_sprites(t_gameinf *game)
 	return (count);
 }
 
-void    fill_sprites(t_gameinf *game)
+void	fill_sprites(t_gameinf *game)
 {
 	int y;
 	int x;
@@ -110,7 +110,7 @@ void    fill_sprites(t_gameinf *game)
 	}
 }
 
-void set_sprites(t_gameinf *game)
+void	set_sprites(t_gameinf *game)
 {
 	int count;
 

@@ -6,7 +6,7 @@
 #    By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/01 11:18:53 by user42            #+#    #+#              #
-#    Updated: 2020/10/21 13:23:50 by grigaux          ###   ########.fr        #
+#    Updated: 2020/10/22 18:56:49 by grigaux          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIB = ar rcs
 NAME = cub3d
 
 SRC = main.c handle_line.c utils.c map_checker.c inits.c algo.c hooks.c \
-	handle_text.c handle_sprites.c hooks_move.c draw.c
+	handle_text.c handle_sprites.c hooks_move.c draw.c handle_map.c
 
 OBJ = $(SRC:.c=.o)
 	INCLUDE = cub3d.h 

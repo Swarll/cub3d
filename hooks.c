@@ -6,13 +6,13 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 12:47:03 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/10/21 13:08:27 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/22 19:01:56 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int    destroy(t_gameinf *game)
+int		destroy(t_gameinf *game)
 {
 	mlx_destroy_image(game->mlx_ptr, game->img_ptr);
 	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
@@ -21,7 +21,7 @@ int    destroy(t_gameinf *game)
 	return (0);
 }
 
-int    key_press_hook(int keycode, t_gameinf *game)
+int		key_press_hook(int keycode, t_gameinf *game)
 {
 	if (keycode == 123)
 		game->right_arr = 1;
@@ -35,12 +35,12 @@ int    key_press_hook(int keycode, t_gameinf *game)
 		game->left = 1;
 	else if (keycode == 2)
 		game->right = 1;
-	else if (keycode == 53) 
+	else if (keycode == 53)
 		destroy(game);
-	return 0;
+	return (0);
 }
 
-int     key_release_hook(int keycode, t_gameinf *game)
+int		key_release_hook(int keycode, t_gameinf *game)
 {
 	if (keycode == 123)
 		game->right_arr = 0;
