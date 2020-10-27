@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 09:46:52 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/21 15:17:13 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/27 15:53:57 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 # include <math.h>
 # include "./libft/libft.h"
 # include "./minilibx_opengl/mlx.h"
+
+typedef	struct	s_bmp
+{
+	int			bpp;
+	int			file_h_s;
+	int			inf_h_s;
+}				t_bmp;
 
 typedef struct	s_s_algo
 {
@@ -103,6 +110,7 @@ typedef struct	s_gameinf
 	t_text		texts[5];
 	t_sprite	*sprites;
 	t_s_algo	s;
+	t_bmp		bmp;
 }				t_gameinf;
 
 char			*handle_line(char *line, t_gameinf *game);
@@ -133,5 +141,9 @@ void			init_sprites(t_gameinf *game);
 int				draw_text(t_gameinf *game, int x, int y, int side);
 void			draw_sprites(t_gameinf *game, int count, double *z_buffer);
 void			draw_line(int x, t_gameinf *game, int side);
+int				seek_spawn(t_gameinf *game);
+void			set_loops(t_gameinf *game);
+char			*set_map(char *line, t_gameinf *game);
+void    start_bmp(t_gameinf *game);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 13:23:43 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/21 15:16:02 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/27 15:16:50 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,20 @@ void    draw_sprites(t_gameinf *game, int count, double *z_buffer)
 			game->s.draw_end_x = game->res_x - 1;
 		
 		stripe = game->s.draw_start_x;
+		// printf("i = %i\n", i);
+		// printf("sprite_x = %f\n", game->s.sprite_x);
+		// printf("sprite_y = %f\n", game->s.sprite_y);
+		// printf("invdet = %f\n", game->s.inv_det);
+		// printf("transform_x = %f\n", game->s.transform_x);
+		// printf("tranform_y = %f\n", game->s.transform_y);
+		// printf("sprite_screen_x = %d\n", game->s.sprite_screen_x);
+		// printf("sprite_height = %d\n", game->s.sprite_height);
+		// printf("draw_start_y = %d\n", game->s.draw_start_y);
+		// printf("draw_end_y = %d\n", game->s.draw_end_y);
+		// printf("sprite_width = %d\n", game->s.sprite_width);
+		// printf("draw_start_x = %d\n", game->s.draw_start_x);
+		// printf("draw_end_x = %d\n", game->s.draw_end_x);
+		// printf("==========================\n");
 		while (stripe < game->s.draw_end_x)
 		{
 			game->s.tex_x = (int)(256 * (stripe - (-(game->s.sprite_width) / 2 + game->s.sprite_screen_x)) * game->texts[4].size_x / game->s.sprite_width / 256);

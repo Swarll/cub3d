@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 14:41:57 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/22 18:57:55 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/27 16:07:59 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@ void	set_loops(t_gameinf *game)
 	mlx_hook(game->win_ptr, 17, 0, destroy, game);
 	mlx_loop_hook(game->mlx_ptr, move_hook, game);
 	mlx_loop(game->mlx_ptr);
+}
+
+void	init_bmp(t_gameinf *game)
+{
+	game->bmp.bpp = 3;
+	game->bmp.file_h_s = 14;
+	game->bmp.inf_h_s = 40;
 }
 
 void	init_sprites(t_gameinf *game)
@@ -70,7 +77,7 @@ void	init_game(t_gameinf *game)
 	game->dir_x = 0;
 	game->dir_y = 0;
 	game->plane_x = 0;
-	game->plane_y = 0.66;
+	game->plane_y = 0;
 	game->camera_x = 0;
 	game->ray_dir_x = 0;
 	game->ray_dir_y = 0;

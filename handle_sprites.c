@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 16:49:43 by grigaux           #+#    #+#             */
-/*   Updated: 2020/10/22 18:59:49 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/27 15:16:39 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,8 @@ void	set_sprites(t_gameinf *game)
 		exit_struct("Problem during malloc of count_sprites", game);
 	fill_sprites(game);
 	sort_sprites(game, count);
+	// for(int i = 0; i < count; i++)
+	// {
+	// 	printf("DIST %i : %f\n", i, game->sprites[i].dist);
+	// }
 }

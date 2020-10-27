@@ -6,7 +6,7 @@
 /*   By: grigaux <grigaux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:14:03 by Guillaume         #+#    #+#             */
-/*   Updated: 2020/10/22 18:55:25 by grigaux          ###   ########.fr       */
+/*   Updated: 2020/10/27 16:01:26 by grigaux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int		main(int argc, char *argv[])
 {
 	t_gameinf	*game;
 
-	if (argc == 2 && argv[0] != 0)
+	if (((argc == 3 && ft_strncmp(argv[2], "--save", 7) == 0) || (argc == 2))
+		&& argv[0] != 0)
 	{
 		if (!(game = malloc(sizeof(t_gameinf))))
 			return (0);
@@ -81,12 +82,10 @@ int		main(int argc, char *argv[])
 		handle_dot_cub(argv[1], game);
 		if (!(start_ray(game)))
 			return (0);
-		if (game)
-			free_struct(game);
-	}
-	else if (argc == 3 && argv[0] != 0 && ft_strncmp(argv[2], "--save", 7) == 0)
-	{
-		printf("yooo\n");
+		if (argc == 3)
+			start_bmp(game);
+		else
+		free_struct(game);
 	}
 	else
 		exit(write(0, "Error\nWrong input", 17));
